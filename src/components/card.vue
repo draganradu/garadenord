@@ -1,0 +1,67 @@
+<template>
+    <router-link
+      :to="raw"
+      v-bind:class="{ 'disabled': !disabled }"
+      class="card" >
+      <icon /> {{title}}
+    </router-link>
+</template>
+
+<script>
+import icon from './icon'
+export default {
+  components: {
+    icon
+  },
+  name: 'card',
+  props: [
+    'raw',
+    'disabled'
+  ],
+  data () {
+    return {
+      title: this.raw.replace(/_/g, ' ')
+    }
+  }
+}
+</script>
+
+<style lang="scss">
+
+.card {
+  color: gray;
+  background-color: transparent;
+  display: block;
+  position: relative;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  min-height: 60px;
+  font-weight: 100;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: black;
+  border-radius: 0;
+
+  &.disabled {
+    pointer-events: none;
+    opacity: 0.2;
+  }
+
+  &:hover,
+  &.router-link-exact-active {
+    &::before {
+      content: ' ';
+      position: absolute;
+      left: -10px;
+      right: -10px;
+      top: -8px;
+      bottom: -1px;
+      background-color: gray;
+      z-index: -1;
+    }
+    color: white;
+    text-decoration: none;
+  }
+}
+
+</style>
