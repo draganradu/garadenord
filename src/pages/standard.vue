@@ -76,8 +76,17 @@ export default {
               _this.rutaimg = _this.fallback
               _this.$router.push({ path: '/' + _this.fallback })
             } else {
-              // force reactivity on other pages then landing page
-              _this.$forceUpdate()
+              // e404
+              let e404 = {}
+              e404.fullRout = _this.rutaimg.replace('/', '')
+              e404.sezon = e404.fullRout.split('_')[0]
+
+              if (!_this.VremeObiect.hasOwnProperty(e404.sezon) || !_this.VremeObiect[e404.sezon].hasOwnProperty(e404.fullRout) || !_this.VremeObiect[e404.sezon][e404.fullRout]) {
+                _this.$router.push({ path: '/404' })
+              } else {
+                // force reactivity on other pages then landing page
+                _this.$forceUpdate()
+              }
             }
           })
       })
@@ -107,7 +116,16 @@ export default {
         this.rutaimg = this.fallback
         this.$router.push({ path: '/' + this.fallback })
       } else {
-        this.rutaimg = to.fullPath
+        // e404
+        let e404 = {}
+        e404.fullRout = this.rutaimg.replace('/', '')
+        e404.sezon = e404.fullRout.split('_')[0]
+
+        if (!this.VremeObiect.hasOwnProperty(e404.sezon) || !this.VremeObiect[e404.sezon].hasOwnProperty(e404.fullRout) || !this.VremeObiect[e404.sezon][e404.fullRout]) {
+          this.$router.push({ path: '/404' })
+        } else {
+          this.rutaimg = to.fullPath
+        }
       }
     }
   }
@@ -115,8 +133,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'node_modules/bootstrap/scss/bootstrap';
-@import 'node_modules/bootstrap-vue/src/index.scss';
+// @import 'node_modules/bootstrap/scss/bootstrap';
+// @import 'node_modules/bootstrap-vue/src/index.scss';
 @import url('https://fonts.googleapis.com/css?family=Oswald:300,400,700&display=swap');
 
 //-- typography
