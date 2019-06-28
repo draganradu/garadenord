@@ -7,7 +7,10 @@
           <div
             v-for="(VremeData, VremeTitle) in VremeObiect" :key="VremeTitle"
             class='segmentare-vreme'>
-            <h3>{{VremeTitle}}</h3>
+            <h3>
+              <div class='segmentare-vreme-icon' v-html="require('!html-loader!./../assets/'+ testa(VremeTitle) +'.svg')"></div>
+              <span>{{VremeTitle}}</span>
+            </h3>
             <card
               v-for="(subValue, SubKey) in VremeData" :key="SubKey"
               :raw="SubKey"
@@ -25,7 +28,7 @@
 import axios from 'axios'
 import card from './../components/card'
 import rightImg from './../components/rightimg'
-import siteData from './../data/site_data.json'
+import siteData from './../api/site_data.json'
 
 export default {
   name: 'GaraDeNord',
@@ -45,7 +48,9 @@ export default {
   },
   mounted () {
     let _this = this
-    axios.get('http://localhost/gara-vue/src/data/VremePosibila.php')
+    let prodUrl = 'http://localhost/garadenord/src/api'
+    // let prodUrl = 'http://fotodex.ro/static/api/'
+    axios.get(`${prodUrl}/VremePosibila.php`)
       .then(response => {
         // initial posibile variants
         for (let i = 0; i < response.data.length; i++) {
@@ -56,7 +61,7 @@ export default {
           _this.VremeObiect[temp[0]][response.data[i]] = false
         }
 
-        axios.get('http://localhost/gara-vue/src/data/VremeDisponibila.php')
+        axios.get(`${prodUrl}/VremeDisponibila.php`)
           .then(response => {
             // set variables that are true
             for (let i = 0; i < response.data.length; i++) {
@@ -87,6 +92,13 @@ export default {
       console.log(this.VremeObiect.primavara.primavara_dimineata_senin)
       this.VremeObiect.primavara.primavara_dimineata_senin = false
       this.$forceUpdate()
+    },
+
+    testa: function (input) {
+      switch (input) {
+        case 'vara': return 'soare'
+        default: return input
+      }
     }
   },
   watch: {
@@ -132,18 +144,75 @@ body {
 }
 
 .segmentare-vreme {
+    $font-size: 10px;
+    $iconsize: 120px;
+    $show: 0.7;
+    $line: 2px;
+
    page-break-inside: avoid;
   h3 {
-    border-width: 1px 0;
-    border-color: gray;
-    border-style: solid;
+    // border-width: 1px 0;
+    // border-color: gray;
+    // border-style: solid;
     color: gray;
     text-transform: uppercase;
     text-transform: uppercase;
-    padding-top: 10px;
     text-align: center;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
+    padding: ($iconsize * $show) 0 0;
+    margin-bottom: ($iconsize / 3);
+    font-size: $font-size;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    span {
+      background-color: white;
+      position: relative;
+      padding: 0 10px;
+      z-index: 3;
+    }
+    &:before {
+      content: '';
+      background-color:gray;
+      position: absolute;
+      bottom: ($font-size /2 );
+      left: 0;
+      right: 0;
+      height: $line;
+      z-index: 2;
+    }
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0%;
+      right: 0;
+      left: 0;
+      height: ($font-size /2);
+      background-color: white;
+      z-index: 1;
+    }
+  }
+
+  &-icon {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, ((1 - $show) * 100%));
+    &,
+    & svg {
+      width: $iconsize;
+      height: $iconsize;
+    }
+
+    svg {
+      path,
+      circle,
+      polyline,
+      line {
+        fill: transparent!important;
+        stroke: gray!important;
+        stroke-width: ($line / ($iconsize / 50px));
+      }
+    }
   }
 }
 .btn {

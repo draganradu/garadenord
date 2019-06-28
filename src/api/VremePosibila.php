@@ -1,8 +1,8 @@
 <?php
 
 $anotim = ['primavara','vara','toamna','iarna'];
-$ora = ['dimineata','pranz','seara'];
-$vreme = ['senin','inorat','ceata'];
+$ora = ['dimineata','pranz','seara','ora_albastra','ora_de_aur','noapte'];
+$vreme = ['senin','innorat','ceata'];
 $temp = [];
 
 foreach ($anotim as $vAnotimp) {

@@ -10,6 +10,7 @@ const chalk = require('chalk')
 const webpack = require('webpack')
 const config = require('../config')
 const webpackConfig = require('./webpack.prod.conf')
+const customBuild = require('./gara_de_nord_custom.js')
 
 const spinner = ora('building for production...')
 spinner.start()
@@ -31,6 +32,9 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
       console.log(chalk.red('  Build failed with errors.\n'))
       process.exit(1)
     }
+    
+    customBuild.makeDir('./dist/static/api/')
+    customBuild.moveFiles('./src/api/','./dist/static/api/')
 
     console.log(chalk.cyan('  Build complete.\n'))
     console.log(chalk.yellow(
@@ -39,3 +43,4 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
     ))
   })
 })
+

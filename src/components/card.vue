@@ -3,7 +3,7 @@
       :to="raw"
       v-bind:class="{ 'disabled': !disabled }"
       class="card" >
-      <icon /> {{title}}
+      <icon :weatherArray='weather' /> {{title}}
     </router-link>
 </template>
 
@@ -20,7 +20,8 @@ export default {
   ],
   data () {
     return {
-      title: this.raw.replace(/_/g, ' ')
+      title: this.raw.replace(/_/g, ' '),
+      weather: this.raw.split('_')
     }
   }
 }
