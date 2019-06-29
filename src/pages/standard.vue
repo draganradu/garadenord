@@ -48,8 +48,8 @@ export default {
   },
   mounted () {
     let _this = this
-    let prodUrl = 'http://localhost/garadenord/src/api'
-    // let prodUrl = 'http://fotodex.ro/static/api/'
+    let prodUrl = _this.baseUrlRequest()
+
     axios.get(`${prodUrl}/VremePosibila.php`)
       .then(response => {
         // initial posibile variants
@@ -92,6 +92,18 @@ export default {
       })
   },
   methods: {
+    baseUrlRequest: function () {
+      if (window.location.host.split(':').length === 1) {
+        // production realrequest
+        return window.location.origin + '/static/api'
+      } else {
+        // dev mock request
+        let builtUrl = window.location.origin.split(':')
+        builtUrl.pop()
+        return builtUrl.join(':') + '/garadenord/src/api'
+      }
+    },
+
     randomElement: function (array) {
       let randTemp = Math.floor(Math.random() * array.length)
       return array[randTemp]

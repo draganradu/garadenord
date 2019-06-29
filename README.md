@@ -1,6 +1,10 @@
-# gara-de-nord-vue
+# Gara de nord
 
-> fotodex gara de nord
+> http://www.fotodex.ro/
+
+Fotodex gara de nord is a light study. A vue 3 website made to showcase the diferent ways the light interacts with the scenary.
+
+
 
 ## Build Setup
 
