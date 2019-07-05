@@ -2,7 +2,7 @@
 
 $anotim = ['primavara','vara','toamna','iarna'];
 $ora = ['dimineata','pranz','seara','ora_albastra','ora_de_aur','noapte'];
-$vreme = ['senin','innorat','ceata'];
+$vreme = ['senin','innorat','ceata','ploaie'];
 $temp = [];
 
 foreach ($anotim as $vAnotimp) {

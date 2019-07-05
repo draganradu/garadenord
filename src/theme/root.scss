@@ -1,7 +1,9 @@
+@import 'variables';
+
 :root {
     --color-one: white;
     --color-two: black;
     --color-three: gray;
 
-    --body-width: 450px;
+    --body-width: #{$body-width};
 }

@@ -33,8 +33,16 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
       process.exit(1)
     }
     
-    customBuild.makeDir('./dist/static/api/')
-    customBuild.moveFiles('./src/api/','./dist/static/api/')
+    // htacces
+    customBuild.moveFile('.htaccess','./src/router/','./dist/')
+
+    // favicon
+    customBuild.moveFile('favicon.ico','./src/assets/','./dist/')
+
+    // dinamic
+    customBuild.makeDir('./dist/dinamic/')
+    customBuild.moveFiles('./src/api/','./dist/dinamic/')
+    
 
     console.log(chalk.cyan('  Build complete.\n'))
     console.log(chalk.yellow(

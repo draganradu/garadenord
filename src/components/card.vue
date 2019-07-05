@@ -42,6 +42,7 @@ export default {
   border-style: solid;
   border-color: black;
   border-radius: 0;
+  text-decoration: none;
 
   &.disabled {
     pointer-events: none;

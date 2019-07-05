@@ -19,7 +19,7 @@
           </div>
       </div>
       <div class="col" id='col-right'>
-          <rightImg :image="rutaimg" />
+          <rightImg :image="rutaimg" :baseUrl="baseUrl" />
       </div>
     </div>
 </template>
@@ -43,7 +43,13 @@ export default {
       VremeObiect: {},
       fallback: '',
       rutaimg: this.$route.path,
-      siteData: siteData
+      siteData: siteData,
+      baseUrl: (window.location.host.split(':').length > 1) ? 'http://localhost/garadenord/img' : window.location.origin + '/img',
+      meta: {
+        title: this.$route.path.replace('/', '').split('_').join(' ').toUpperCase() + ' | Gara de Nord',
+        description: 'radu',
+        url: 'https://www.fotodex.ro' + this.$route.path
+      }
     }
   },
   mounted () {
@@ -137,8 +143,55 @@ export default {
           this.$router.push({ path: '/404' })
         } else {
           this.rutaimg = to.fullPath
+          // scroll to top if with of page is smaller then media query
+          if (window.innerWidth < 1000) {
+            window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: 'smooth',
+            })
+          }
         }
       }
+    }
+  },
+  metaInfo () {
+    return {
+      title: this.meta.title,
+      htmlAttrs: {
+        lang: 'ro',
+      },
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'description', content: this.meta.description },
+        { rel: 'favicon', href: 'http://fotodex.ro/favicon.ico' },
+
+        // OG Tag
+        {property: 'og:title', content: this.meta.title},
+        {property: 'og:site_name', content: 'Fotodex'},
+        {property: 'og:type', content: 'website'},
+        {property: 'og:url', content: this.meta.url},
+        {property: 'og:image', content: this.baseUrl + this.rutaimg},
+        {property: 'og:description', content: this.meta.description},
+
+        // Twitter card
+        {name: 'twitter:title', content: this.meta.title},
+        {name: 'twitter:card', content: 'summary'},
+        {name: 'twitter:site', content: this.meta.url},
+        {name: 'twitter:description', content: this.meta.description},
+        {name: 'twitter:creator', content: '@fotodex.ro'},
+        {name: 'twitter:image:src', content: this.baseUrl + this.rutaimg},
+
+        // Google / Schema.org markup:
+        {itemprop: 'name', content: this.meta.title},
+        {itemprop: 'description', content: this.meta.description},
+        {itemprop: 'image', content: this.baseUrl + this.rutaimg}
+
+      ],
+      link: [
+        {rel: 'canonical', href: this.meta.url}
+      ]
     }
   }
 }
@@ -148,7 +201,15 @@ export default {
 // @import 'node_modules/bootstrap/scss/bootstrap';
 // @import 'node_modules/bootstrap-vue/src/index.scss';
 @import url('https://fonts.googleapis.com/css?family=Oswald:300,400,700&display=swap');
+@import './../theme/variables.scss';
 
+// normalize
+
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+}
 //-- typography
 body {
   font-family: 'Oswald', sans-serif;
@@ -159,6 +220,7 @@ body {
   h1 {
     font-weight: 800;
     margin-bottom: 0;
+    margin-top: 0;
     line-height: 0.9;
     font-size: 100px;
     text-transform: uppercase;
@@ -170,7 +232,18 @@ body {
   }
 
 #col-left {
+  box-sizing: border-box;
   max-width: var(--body-width);
+  padding: calc( var(--body-width) / 10);
+
+  @media (max-width: ($body-width * 2) ){
+    max-width: 100%;
+    margin-top: $img-phanel;
+  }
+
+    @media (max-width: $body-width){
+      column-count: 1!important;
+  }
 }
 
 .segmentare-vreme {
@@ -180,6 +253,7 @@ body {
     $line: 2px;
 
    page-break-inside: avoid;
+   border: 1px solid transparent;
   h3 {
     // border-width: 1px 0;
     // border-color: gray;
@@ -226,11 +300,13 @@ body {
     position: absolute;
     bottom: 0;
     left: 50%;
-    transform: translate(-50%, ((1 - $show) * 100%));
+    transform: translate(-100%, ((1 - $show) * 100%));
+    // position: relative;
     &,
     & svg {
       width: $iconsize;
       height: $iconsize;
+      position: absolute;
     }
 
     svg {
