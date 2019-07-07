@@ -240,8 +240,16 @@ h2 {
     margin-top: $img-phanel;
   }
 
-    @media (max-width: $body-width){
-      column-count: 1!important;
+  @media (max-width: $body-width){
+    column-count: 1!important;
+
+    h1 {
+      font-size: 20vw;
+    }
+
+    h2 {
+      font-size: 5vw;
+    }
   }
 
   h2 {

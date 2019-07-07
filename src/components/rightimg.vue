@@ -44,6 +44,16 @@ export default {
       padding: 20px;
       background-position: center;
 
+      &:after {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 80%;
+      }
+
       @media (max-width: ($body-width * 2) ){
         position: absolute;
         left: 0;

@@ -12,9 +12,6 @@ export default {
 </script>
 
 <style lang="scss">
-
-// @import 'node_modules/bootstrap/scss/bootstrap';
-// @import 'node_modules/bootstrap-vue/src/index.scss';
 @import url('https://fonts.googleapis.com/css?family=Oswald:300,400,700&display=swap');
 @import './theme/root.scss';
 //-- typography
