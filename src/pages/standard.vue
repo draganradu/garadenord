@@ -45,11 +45,6 @@ export default {
       rutaimg: this.$route.path,
       siteData: siteData,
       baseUrl: (window.location.host.split(':').length > 1) ? 'http://localhost/garadenord/img' : window.location.origin + '/img',
-      meta: {
-        title: this.$route.path.replace('/', '').split('_').join(' ').toUpperCase() + ' | Gara de Nord',
-        description: 'radu',
-        url: 'https://www.fotodex.ro' + this.$route.path
-      }
     }
   },
   mounted () {
@@ -91,6 +86,7 @@ export default {
                 _this.$router.push({ path: '/404' })
               } else {
                 // force reactivity on other pages then landing page
+
                 _this.$forceUpdate()
               }
             }
@@ -156,41 +152,48 @@ export default {
     }
   },
   metaInfo () {
+    let _this = {
+      meta: {
+        title: this.$route.path.replace('/', '').split('_').join(' ').toUpperCase() + ' | Gara de Nord',
+        description: 'radu',
+        url: 'https://www.fotodex.ro' + this.$route.path
+      }
+    }
     return {
-      title: this.meta.title,
+      title: _this.meta.title,
       htmlAttrs: {
         lang: 'ro',
       },
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: this.meta.description },
+        { name: 'description', content: _this.meta.description },
         { rel: 'favicon', href: 'http://fotodex.ro/favicon.ico' },
 
         // OG Tag
-        {property: 'og:title', content: this.meta.title},
+        {property: 'og:title', content: _this.meta.title},
         {property: 'og:site_name', content: 'Fotodex'},
         {property: 'og:type', content: 'website'},
-        {property: 'og:url', content: this.meta.url},
-        {property: 'og:image', content: this.baseUrl + this.rutaimg},
-        {property: 'og:description', content: this.meta.description},
+        {property: 'og:url', content: _this.meta.url},
+        {property: 'og:image', content: _this.baseUrl + _this.rutaimg},
+        {property: 'og:description', content: _this.meta.description},
 
         // Twitter card
-        {name: 'twitter:title', content: this.meta.title},
+        {name: 'twitter:title', content: _this.meta.title},
         {name: 'twitter:card', content: 'summary'},
-        {name: 'twitter:site', content: this.meta.url},
-        {name: 'twitter:description', content: this.meta.description},
+        {name: 'twitter:site', content: _this.meta.url},
+        {name: 'twitter:description', content: _this.meta.description},
         {name: 'twitter:creator', content: '@fotodex.ro'},
-        {name: 'twitter:image:src', content: this.baseUrl + this.rutaimg},
+        {name: 'twitter:image:src', content: _this.baseUrl + _this.rutaimg},
 
         // Google / Schema.org markup:
-        {itemprop: 'name', content: this.meta.title},
-        {itemprop: 'description', content: this.meta.description},
-        {itemprop: 'image', content: this.baseUrl + this.rutaimg}
+        {itemprop: 'name', content: _this.meta.title},
+        {itemprop: 'description', content: _this.meta.description},
+        {itemprop: 'image', content: _this.baseUrl + _this.rutaimg}
 
       ],
       link: [
-        {rel: 'canonical', href: this.meta.url}
+        {rel: 'canonical', href: _this.meta.url}
       ]
     }
   }
