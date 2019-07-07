@@ -30,7 +30,8 @@ export default {
 <style lang="scss">
 
 .card {
-  color: gray;
+  font-size: 20px;
+  color: var(--color-three);
   background-color: transparent;
   display: block;
   position: relative;
@@ -40,7 +41,7 @@ export default {
   font-weight: 100;
   border-width: 0 0 1px 0;
   border-style: solid;
-  border-color: black;
+  border-color: var(--color-two);
   border-radius: 0;
   text-decoration: none;
 
@@ -58,10 +59,10 @@ export default {
       right: -10px;
       top: -8px;
       bottom: -1px;
-      background-color: gray;
+      background-color: var(--color-three);
       z-index: -1;
     }
-    color: white;
+    color: var(--color-one);
     text-decoration: none;
   }
 }

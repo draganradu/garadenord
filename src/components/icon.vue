@@ -65,9 +65,7 @@ export default {
 </script>
 
 <style lang="scss">
-// -- fill
-$color: gray;
-$color-invert: white;
+
 // -- stroke
 // -- styke
 .icon {
@@ -81,12 +79,12 @@ $color-invert: white;
     circle,
     polyline,
     line {
-        stroke: $color;
+        stroke: var(--color-three);
         fill: transparent;
     }
 
     .cutout {
-        fill: $color-invert;
+        fill: var(--color-one);
         polyline,
         path {
             stroke: transparent!important;
@@ -100,11 +98,11 @@ $color-invert: white;
         polyline,
         line {
             fill: transparent;
-            stroke: $color-invert;
+            stroke: var(--color-one);
         }
 
         .cutout {
-            fill: $color;
+            fill: var(--color-three);
             polyline,
             path {
                 stroke: transparent!important;

@@ -33,15 +33,24 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
       process.exit(1)
     }
     
+
     // htacces
+    customBuild.title('htacces')
     customBuild.moveFile('.htaccess','./src/router/','./dist/')
 
     // favicon
+    customBuild.title('Favicon')
     customBuild.moveFile('favicon.ico','./src/assets/','./dist/')
 
     // dinamic
+    customBuild.title('Dinamic Data')
     customBuild.makeDir('./dist/dinamic/')
     customBuild.moveFiles('./src/api/','./dist/dinamic/')
+
+    // img 
+    customBuild.title('Images')
+    customBuild.makeDir('./dist/img/')
+    customBuild.resizeImageAndCopy('./img/','./dist/img/')
     
 
     console.log(chalk.cyan('  Build complete.\n'))

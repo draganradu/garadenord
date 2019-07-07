@@ -1,6 +1,6 @@
 <template>
     <div class="row">
-      <div class="col row-2" id='col-left'>
+      <div class="col" id='col-left'>
           <h1 class='row-span-all'>{{siteData.Sitetile}}</h1>
           <h2 class='row-span-all'>{{siteData.Subtitele}}</h2>
           <!-- <button  v-on:click='delyarna'>delete yarna</button> -->
@@ -203,35 +203,31 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Oswald:300,400,700&display=swap');
 @import './../theme/variables.scss';
 
-// normalize
-
-* {
-  margin: 0;
-  padding: 0;
-  text-decoration: none;
-}
-//-- typography
+//-- General theme
+//-- -------------------------------------
+//-- 1 | Typography
 body {
   font-family: 'Oswald', sans-serif;
   font-weight: 300;
-  font-size: 20px;
-  line-height: 1;
 }
-  h1 {
-    font-weight: 800;
-    margin-bottom: 0;
-    margin-top: 0;
-    line-height: 0.9;
-    font-size: 100px;
-    text-transform: uppercase;
-    max-width: var(--body-width);
-  }
 
-  h2 {
-    margin-bottom: 60px;
-  }
+h1 {
+  font-weight: 800;
+  line-height: 0.9;
+  font-size: 100px;
+  text-transform: uppercase;
+}
+
+h2 {
+  font-weight: 800;
+  font-size: 30px;
+}
 
 #col-left {
+  background-color: var(--color-one);
+  position: relative;
+  z-index: 1;
+  column-count: 2;
   box-sizing: border-box;
   max-width: var(--body-width);
   padding: calc( var(--body-width) / 10);
@@ -244,21 +240,26 @@ body {
     @media (max-width: $body-width){
       column-count: 1!important;
   }
+
+  h2 {
+    margin-bottom: 60px;
+  }
+
+  h1, h2 {
+    color: var(--color-two);
+  }
 }
 
 .segmentare-vreme {
-    $font-size: 10px;
-    $iconsize: 120px;
-    $show: 0.7;
-    $line: 2px;
+  $font-size: 10px;
+  $iconsize: 120px;
+  $show: 0.7;
+  $line: 2px;
 
-   page-break-inside: avoid;
-   border: 1px solid transparent;
+  page-break-inside: avoid;
+  border: 1px solid transparent;
   h3 {
-    // border-width: 1px 0;
-    // border-color: gray;
-    // border-style: solid;
-    color: gray;
+    color: var(--color-three);
     text-transform: uppercase;
     text-transform: uppercase;
     text-align: center;
@@ -268,30 +269,33 @@ body {
     letter-spacing: 2px;
     position: relative;
     overflow: hidden;
+
     span {
-      background-color: white;
+      background-color: var(--color-one);
       position: relative;
       padding: 0 10px;
       z-index: 3;
     }
-    &:before {
-      content: '';
-      background-color:gray;
-      position: absolute;
-      bottom: ($font-size /2 );
-      left: 0;
-      right: 0;
-      height: $line;
-      z-index: 2;
-    }
+
+    &:before,
     &:after {
       content: '';
       position: absolute;
-      bottom: 0%;
       right: 0;
       left: 0;
+    }
+
+    &:before {
+      background-color: var(--color-three);
+      bottom: ($font-size /2 );
+      height: $line;
+      z-index: 2;
+    }
+
+    &:after {
+      bottom: 0%;
       height: ($font-size /2);
-      background-color: white;
+      background-color: var(--color-one);
       z-index: 1;
     }
   }
@@ -315,19 +319,16 @@ body {
       polyline,
       line {
         fill: transparent!important;
-        stroke: gray!important;
+        stroke: var(--color-three)!important;
         stroke-width: ($line / ($iconsize / 50px));
       }
     }
   }
 }
+
 .btn {
   margin-right: 2px;
   margin-bottom: 2px;
-}
-
-.row-2 {
-  column-count: 2;
 }
 
 .row-span-all {

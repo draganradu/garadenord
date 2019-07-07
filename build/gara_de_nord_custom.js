@@ -1,4 +1,5 @@
 const fs = require('fs')
+const sharp = require('sharp')
 
 let helpers = {}
 
@@ -26,6 +27,38 @@ helpers.moveFiles = function (from,to) {
             helpers.moveFile(file, from, to)
         });
     });
+}
+
+helpers.copyImageAndResize = function (file,h,from,to){
+    let input = from + file
+    let output = to + file.toLowerCase()
+    sharp(input).resize({ height: h }).toFile(output)
+        .then(function(newFileInfo) {
+            console.log(`Success | ${file} | ${h}px`)
+        })
+        .catch(function(err) {
+            onsole.log(`Error | + ${output}`)
+        });
+}
+
+helpers.resizeImageAndCopy = function (from, to){
+    fs.readdir(from, function (err, files) {
+        // handling error
+        if (err) {
+            console.log('Unable to scan directory: ' + err);
+        } else {
+            files.forEach(function (file) {            
+                helpers.copyImageAndResize(file,970,from,to);
+            });
+        }
+    });
+}
+
+
+helpers.title = function (title) {
+    console.log('------------------------------------')
+    console.log(title)
+    console.log('------------------------------------')
 }
 
 module.exports = helpers

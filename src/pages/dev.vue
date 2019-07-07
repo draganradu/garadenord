@@ -77,8 +77,8 @@ export default {
     padding-top: 20px;
     span {
       padding: 10px;
-      background-color: black;
-      color: white;
+      background-color: var(--color-two);
+      color: var(--color-one);
     }
   }
 
