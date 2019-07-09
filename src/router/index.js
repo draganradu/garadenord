@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import standardPage from '@/pages/standard'
 import e404 from '@/pages/404'
 import dev from '@/pages/dev'
+import colors from '@/pages/colors'
 
 Vue.use(Router)
 
@@ -18,6 +19,11 @@ export default new Router({
       path: '/dev',
       name: 'dev',
       component: dev
+    },
+    {
+      path: '/colors',
+      name: 'colors',
+      component: colors
     },
     {
       path: '*',

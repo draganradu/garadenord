@@ -1,5 +1,9 @@
 <template>
     <div class="row">
+      <nav>
+        <router-link to="/colors">Color Patterns</router-link>
+        <router-link to="/">{{pickOfTheDay.title}}</router-link>
+      </nav>
       <div class="col" id='col-left'>
           <h1 class='row-span-all'>{{siteData.Sitetile}}</h1>
           <h2 class='row-span-all'>{{siteData.Subtitele}}</h2>
@@ -41,10 +45,14 @@ export default {
       VremePosibila: [],
       VremeDisponibila: [],
       VremeObiect: {},
-      fallback: '',
       rutaimg: this.$route.path,
       siteData: siteData,
       baseUrl: (window.location.host.split(':').length > 1) ? 'http://localhost/garadenord/img' : window.location.origin + '/img',
+      pickOfTheDay: {
+        count: 0,
+        title: '',
+        url: '',
+      }
     }
   },
   mounted () {
@@ -65,19 +73,25 @@ export default {
         axios.get(`${prodUrl}/VremeDisponibila.php`)
           .then(response => {
             // set variables that are true
+            _this.pickOfTheDay.count = _this.elementByYear(response.data.length)
             for (let i = 0; i < response.data.length; i++) {
               let temp = response.data[i].split('_')
               if (!_this.VremeObiect.hasOwnProperty(temp[0])) {
                 _this.VremeObiect[temp[0]] = {}
               }
               _this.VremeObiect[temp[0]][response.data[i]] = true
+
+              if (i === _this.pickOfTheDay.count) {
+                _this.pickOfTheDay.title = response.data[i].split('_').join(' ')
+                _this.pickOfTheDay.url = '/' + response.data[i]
+              }
             }
+            // landing page
             if (_this.rutaimg === '/') {
-              _this.fallback = this.randomElement(response.data)
-              _this.rutaimg = _this.fallback
-              _this.$router.push({ path: '/' + _this.fallback })
+              _this.rutaimg = _this.pickOfTheDay.url
+              _this.$router.push({ path: _this.pickOfTheDay.url })
             } else {
-              // e404
+              // e404 page
               let e404 = {}
               e404.fullRout = _this.rutaimg.replace('/', '')
               e404.sezon = e404.fullRout.split('_')[0]
@@ -86,7 +100,6 @@ export default {
                 _this.$router.push({ path: '/404' })
               } else {
                 // force reactivity on other pages then landing page
-
                 _this.$forceUpdate()
               }
             }
@@ -104,6 +117,17 @@ export default {
         builtUrl.pop()
         return builtUrl.join(':') + '/garadenord/src/api'
       }
+    },
+
+    elementByYear: function (arrayLength) {
+      let settings = {
+        time: {}
+      }
+      settings.time.current = new Date()
+      settings.time.start = new Date('1/1/' + settings.time.current.getFullYear())
+      settings.time.diff = Math.floor((settings.time.current - settings.time.start) / (1000 * 60 * 60 * 24))
+      settings.time.daysInYear = (settings.time.current.getFullYear() % 400 === 0 || (settings.time.current.getFullYear() % 100 !== 0 && settings.time.current.getFullYear() % 4 === 0)) ? 366 : 365
+      return Math.floor(settings.time.diff / settings.time.daysInYear * arrayLength)
     },
 
     randomElement: function (array) {
@@ -127,8 +151,8 @@ export default {
   watch: {
     $route (to, from) {
       if (to.fullPath === '/') {
-        this.rutaimg = this.fallback
-        this.$router.push({ path: '/' + this.fallback })
+        this.rutaimg = '/' + this.pickOfTheDay.url
+        this.$router.push({ path: this.pickOfTheDay.url })
       } else {
         // e404
         let e404 = {}
@@ -356,6 +380,11 @@ h2 {
 .fade-enter,
 .fade-leave-active {
   opacity: 0
+}
+
+nav {
+  padding: 5px;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
 </style>

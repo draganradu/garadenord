@@ -1,5 +1,6 @@
 const fs = require('fs')
 const sharp = require('sharp')
+const ColorThief = require('color-thief')
 
 let helpers = {}
 
@@ -53,6 +54,33 @@ helpers.resizeImageAndCopy = function (from, to){
         }
     });
 }
+
+helpers.buildColorPattern = function (from, to) {
+    let thief = new ColorThief();
+    let output = {}
+
+    fs.readdir(from, function (err, files) {
+        // handling error
+        if (err) {
+            console.log('Unable to scan directory: ' + err);
+        } else {
+            files.forEach(function (file) {
+                output[file.split('.')[0]] = {
+                    domniant: thief.getColor(from + file),
+                    pattern: thief.getPalette(from + file, 8),
+                }
+            });
+
+            fs.writeFile(to + 'colorPattern.json', JSON.stringify(output), 'utf8', (err) => {
+                if(err){
+                    console.log(err)
+                } else {
+                    console.log(`Success | Built color Pattern Json`)
+                }
+            })
+        }
+    });
+} 
 
 
 helpers.title = function (title) {

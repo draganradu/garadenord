@@ -51,6 +51,9 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
     customBuild.title('Images')
     customBuild.makeDir('./dist/img/')
     customBuild.resizeImageAndCopy('./img/','./dist/img/')
+
+    // buildPattern
+    customBuild.buildColorPattern('./img/','./dist/dinamic/')
     
 
     console.log(chalk.cyan('  Build complete.\n'))
