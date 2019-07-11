@@ -1,5 +1,8 @@
 <template>
-    <div class="right-img" v-bind:style="{ backgroundImage: 'url(' + baseUrl +  image + '.jpg)' }">
+    <div
+      class="right-img"
+      v-bind:class="{ grayscale: $store.getters.grayscale }"
+      v-bind:style="{ backgroundImage: 'url(' + baseUrl +  image + '.jpg)' }">
     <div id='overlay-img'>
       <icon :weatherArray="image.replace('/', '').split('_')" />
       <p>{{image.split('_').join(' ').replace('/', '')}}</p>
@@ -43,6 +46,10 @@ export default {
       text-align: right;
       padding: 20px;
       background-position: center;
+      transition: 1.5s ease-in-out;
+      @media (max-width: ($body-width * 2) ){
+        background-attachment: fixed
+      }
 
       &:after {
         content: ' ';
@@ -87,5 +94,9 @@ export default {
         }
       }
     }
+  }
+
+  .grayscale {
+    filter: grayscale(100%);
   }
 </style>

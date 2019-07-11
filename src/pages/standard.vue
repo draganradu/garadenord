@@ -1,9 +1,10 @@
 <template>
     <div class="row">
-      <nav>
-        <router-link to="/colors">Color Patterns</router-link>
-        <router-link to="/">{{pickOfTheDay.title}}</router-link>
-      </nav>
+      <navHead
+        :links="[
+          ['Color Patterns','/colors'],
+          [ $store.getters.todaysImgTitle, $store.getters.todaysImgurl]
+        ]"/>
       <div class="col" id='col-left'>
           <h1 class='row-span-all'>{{siteData.Sitetile}}</h1>
           <h2 class='row-span-all'>{{siteData.Subtitele}}</h2>
@@ -32,13 +33,15 @@
 import axios from 'axios'
 import card from './../components/card'
 import rightImg from './../components/rightimg'
+import navHead from './../components/nav'
 import siteData from './../api/site_data.json'
 
 export default {
   name: 'GaraDeNord',
   components: {
     card,
-    rightImg
+    rightImg,
+    navHead
   },
   data () {
     return {
@@ -82,14 +85,13 @@ export default {
               _this.VremeObiect[temp[0]][response.data[i]] = true
 
               if (i === _this.pickOfTheDay.count) {
-                _this.pickOfTheDay.title = response.data[i].split('_').join(' ')
-                _this.pickOfTheDay.url = '/' + response.data[i]
+                this.$store.commit('setTodaysImg', response.data[i])
               }
             }
             // landing page
             if (_this.rutaimg === '/') {
-              _this.rutaimg = _this.pickOfTheDay.url
-              _this.$router.push({ path: _this.pickOfTheDay.url })
+              _this.rutaimg = _this.$store.getters.todaysImgurl
+              _this.$router.push({ path: _this.$store.getters.todaysImgurl })
             } else {
               // e404 page
               let e404 = {}
@@ -105,6 +107,10 @@ export default {
             }
           })
       })
+
+    if (localStorage.getItem('grayscale') === 'true') {
+      this.$store.commit('setGrayscale', true)
+    }
   },
   methods: {
     baseUrlRequest: function () {
@@ -151,8 +157,8 @@ export default {
   watch: {
     $route (to, from) {
       if (to.fullPath === '/') {
-        this.rutaimg = '/' + this.pickOfTheDay.url
-        this.$router.push({ path: this.pickOfTheDay.url })
+        this.rutaimg = this.$store.getters.todaysImgurl
+        this.$router.push({ path: this.$store.getters.todaysImgurl })
       } else {
         // e404
         let e404 = {}
@@ -380,11 +386,6 @@ h2 {
 .fade-enter,
 .fade-leave-active {
   opacity: 0
-}
-
-nav {
-  padding: 5px;
-  border-bottom: 1px solid rgba(0,0,0,0.1);
 }
 
 </style>
