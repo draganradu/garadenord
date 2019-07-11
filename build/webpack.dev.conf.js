@@ -20,6 +20,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   // cheap-module-eval-source-map is faster for development
   devtool: config.dev.devtool,
 
+  // json for files
+
+
   // these devServer options should be customized in /config/index.js
   devServer: {
     clientLogLevel: 'warning',

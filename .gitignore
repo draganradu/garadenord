@@ -2,6 +2,7 @@
 node_modules/
 /dist/
 /img/
+/_assets/
 src/assets/studiu_de_lumina/
 npm-debug.log*
 yarn-debug.log*
