@@ -22,6 +22,14 @@
               :disabled="subValue"
             />
           </div>
+          <div
+            class='segmentare-vreme error'
+            v-if="(Object.keys(VremeObiect).length === 0)"
+            v-for="(info, keyInfo) in $metaInfo.meta" :key="keyInfo">
+            <div class='error-icon'></div>
+            <div class='error-text-1'></div>
+            <div class='error-text-2'></div>
+          </div>
       </div>
       <div class="col" id='col-right'>
           <rightImg :image="rutaimg" :baseUrl="baseUrl" />
@@ -364,6 +372,12 @@ h2 {
         stroke-width: ($line / ($iconsize / 50px));
       }
     }
+  }
+  &.error {
+    min-height: 60px;
+    background-color: lightgray;
+    margin-bottom: 10px;
+    position: relative;
   }
 }
 

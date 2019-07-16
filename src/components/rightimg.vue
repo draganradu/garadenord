@@ -1,5 +1,6 @@
 <template>
     <div
+      v-if="(image !== '/')"
       class="right-img"
       v-bind:class="{ grayscale: $store.getters.grayscale }"
       v-bind:style="{ backgroundImage: 'url(' + baseUrl +  image + '.jpg)' }">
@@ -7,6 +8,11 @@
       <icon :weatherArray="image.replace('/', '').split('_')" />
       <p>{{image.split('_').join(' ').replace('/', '')}}</p>
     </div>
+    </div>
+    <div
+      v-else
+      class="right-img error"
+      v-html="require(`!html-loader!./../assets/gara-outline.svg`)">
     </div>
 </template>
 
@@ -91,6 +97,15 @@ export default {
             width: $size;
             height: $size;
           }
+        }
+      }
+
+      &.error {
+        display: flex;
+        padding: 0;
+        svg {
+          margin: auto;
+          flex-grow: 1;
         }
       }
     }

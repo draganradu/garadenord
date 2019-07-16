@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 
 $anotim = ['primavara','vara','toamna','iarna'];
 $ora = ['dimineata','pranz','seara','ora_albastra','ora_de_aur','noapte'];

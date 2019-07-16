@@ -1,4 +1,5 @@
 <?php
+header('Access-Control-Allow-Origin: *');
 
 function cleanup($data) {
     $data = str_replace([".jpg","/img","..","/",".JPG"],"",$data);

@@ -30,12 +30,12 @@ helpers.moveFiles = function (from,to) {
     });
 }
 
-helpers.copyImageAndResize = function (file,h,from,to){
+helpers.copyImageAndResize = function (file,w,from,to){
     let input = from + file
     let output = to + file.toLowerCase()
-    sharp(input).resize({ height: h }).toFile(output)
+    sharp(input).resize({ width: w }).toFile(output)
         .then(function(newFileInfo) {
-            console.log(`Success | ${file} | ${h}px`)
+            console.log(`Success | ${file} | ${w}px`)
         })
         .catch(function(err) {
             onsole.log(`Error | + ${output}`)
@@ -49,7 +49,7 @@ helpers.resizeImageAndCopy = function (from, to){
             console.log('Unable to scan directory: ' + err);
         } else {
             files.forEach(function (file) {            
-                helpers.copyImageAndResize(file,970,from,to);
+                helpers.copyImageAndResize(file,990,from,to);
             });
         }
     });

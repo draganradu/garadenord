@@ -1,0 +1,83 @@
+.icon {
+    float:left;
+    height: 50px;
+    width: 50px;
+    overflow: hidden;
+    margin-right: 10px;
+    //color ---------------------------------
+    path,
+    circle,
+    polyline,
+    line {
+        stroke: var(--color-three);
+        fill: transparent;
+    }
+
+    .cutout {
+        fill: var(--color-one);
+        polyline,
+        path {
+            stroke: transparent!important;
+        }
+    }
+    //invert --------------------------------------
+    .router-link-exact-active &,
+    .card:hover & {
+        path,
+        circle,
+        polyline,
+        line {
+            fill: transparent;
+            stroke: var(--color-one);
+        }
+
+        .cutout {
+            fill: var(--color-three);
+            polyline,
+            path {
+                stroke: transparent!important;
+            }
+        }
+    }
+
+    .comp-icon {
+        position: absolute;
+        &.seara,
+        &.dimineata {
+            z-index: 100;
+            &.cutout {
+             z-index: 99;
+            }
+        }
+        &.ceata {
+            z-index: 110;
+            &.cutout {
+             z-index: 109;
+            }
+        }
+    }
+
+    &.seara,
+    &.dimineata {
+        & > .soare {
+            top: 5px;
+        }
+        & > .dimineata {
+            top: 10px;
+        }
+        &.ceata {
+            & > .soare {
+                top: 0px;
+            }
+            & > .dimineata {
+                top: 0px;
+            }
+        }
+    }
+
+    &.seara {
+        & > .seara {
+
+        }
+    }
+}
