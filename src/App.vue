@@ -1,17 +1,39 @@
 <template>
-  <div id="app" class="container-fluid">
+  <div id='app' class='container-fluid'>
     <router-view />
   </div>
 </template>
 
 <script>
+import siteData from './api/site_data.json'
+import siteHistory from './components/History'
 
 export default {
-  name: 'app'
+  name: 'app',
+  metaInfo () {
+    // --- Defaltu meta tags
+    return {
+      htmlAttrs: {
+        lang: 'ro'
+      },
+      title: siteData.Sitetile + ' | ' + siteData.Subtitele,
+      meta: [
+        { charset: 'utf-8' },
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'description', content: siteData.description },
+        { rel: 'favicon', href: 'http://fotodex.ro/favicon.ico' }
+      ]
+    }
+  },
+  watch: {
+    $route (to, from) {
+      siteHistory.methods.set(to)
+    }
+  }
 }
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 @import url('https://fonts.googleapis.com/css?family=Oswald:300,400,700&display=swap');
 @import './theme/root.scss';
 //-- typography

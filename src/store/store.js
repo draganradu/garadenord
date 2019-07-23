@@ -21,6 +21,6 @@ export const store = new Vuex.Store({
     grayscale: state => state.grayscale,
     todaysImgTitle: state => state.todaysImg.split('_').join(' '),
     todaysImgurl: state => '/' + state.todaysImg,
-    todaysImgraw: state => state.todaysImg,
-  },
+    todaysImgraw: state => state.todaysImg
+  }
 })

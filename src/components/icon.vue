@@ -69,7 +69,9 @@ export default {
 
     // modifier atmosferic / rasarit / apus / ora albastra
     checkForL3: function () {
-
+      if (this.weatherArray.indexOf('ceata') > -1) {
+        return 'ceata'
+      }
     },
 
     // modifier complex
@@ -107,6 +109,7 @@ export default {
     }
 
     this.icons.l2 = this.checkForL2()
+    this.icons.l3 = this.checkForL3()
     this.icons.l4 = this.checkForL4()
     // }
   }
@@ -154,48 +157,18 @@ export default {
                 stroke: transparent!important;
             }
         }
+
+        // ----- nor ---
+        .nor {
+          path {
+            fill: var(--color-one);
+          }
+      }
     }
 
     .comp-icon {
         position: absolute;
-        // &.seara,
-        // &.dimineata {
-        //     z-index: 100;
-        //     &.cutout {
-        //      z-index: 99;
-        //     }
-        // }
-        // &.ceata {
-        //     z-index: 110;
-        //     &.cutout {
-        //      z-index: 109;
-        //     }
-        // }
     }
-
-    // &.seara,
-    // &.dimineata {
-    //     & > .soare {
-    //         top: 5px;
-    //     }
-    //     & > .dimineata {
-    //         top: 10px;
-    //     }
-    //     &.ceata {
-    //         & > .soare {
-    //             top: 0px;
-    //         }
-    //         & > .dimineata {
-    //             top: 0px;
-    //         }
-    //     }
-    // }
-
-    // &.seara {
-    //     & > .seara {
-
-    //     }
-    // }
 
     // ------ customization
     @mixin svgScale($scale){
@@ -203,11 +176,25 @@ export default {
       stroke-width: (1 / $scale)
     }
 
+    // ----- cutout ---
+    #cutout path {
+        fill: var(--color-one);
+        stroke: transparent;
+    }
+
     // ------ nor ----
     .nor {
+      position: relative;
+      left: 15%;
+      top: 5%;
       path {
         fill: var(--color-one);
       }
+    }
+
+    // ------ ceata ----
+    .ceata {
+
     }
     // ------ primavara ----
     &.primavara.noapte {
@@ -244,37 +231,9 @@ export default {
         fill: var(--color-one);
       }
     }
-    &.primavara.inorat,
-    &.primavara.innorat,
-    &.primavara.ploaie,
-    &.primavara.ninsoare {
-      .nor {
-        position: relative;
-        left: 15%;
-        top: 5%;
-      }
-    }
     // ------ vara -----
-    &.vara.inorat,
-    &.vara.innorat,
-    &.vara.plaoie {
-        .nor {
-          position: relative;
-          left: 15%;
-          top: 5%;
-        }
-    }
+
     // ------ iarna ----
-    &.iarna.inorat,
-    &.iarna.innorat,
-    &.iarna.ploaie,
-    &.iarna.ninsoare {
-      .nor {
-        position: relative;
-        left: 15%;
-        top: 15%;
-      }
-    }
 
     // ------ noapte ----
     &.noapte.ploaie,
@@ -292,6 +251,7 @@ export default {
         right: -10%;
 
         &.l4 {
+          left: unset;
           right: 24%;
           z-index: 15;
           top: 12%;
@@ -303,7 +263,27 @@ export default {
       .special {
         z-index: 10;
         circle {
-          stroke: white
+          stroke: var(--color-one);
+        }
+      }
+    }
+
+    &.special {
+      #highk,
+      #lowk {
+        stroke: transparent;
+        fill: transparent;
+      }
+
+      &.high {
+        #highk {
+          fill: var(--color-three);
+        }
+      }
+
+      &.low {
+        #lowk {
+          fill: var(--color-three);
         }
       }
     }

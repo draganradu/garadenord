@@ -4,4 +4,8 @@
 <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 width="50px" height="50px" viewBox="0 0 50 50" enable-background="new 0 0 50 50" xml:space="preserve">
 <circle fill="none" stroke="#000000" stroke-miterlimit="10" cx="25.013" cy="25.004" r="14.671"/>
+<path id="lowk" d="M28.177,37.48l-6.873-6.841l-0.732,0.731v7.57l-1.305-0.435V11.501l1.305-0.491v18.484l5.695-5.664h1.846
+	l-5.95,5.918l7.732,7.732H28.177z"/>
+<path id="highk" d="M31.598,38.117L19.557,26.04l-0.237,0.236v12.253l-1.616-0.803V12.281l1.616-0.789V23.99l12.21-12.134l1.455,0.83
+	L20.7,24.936l12.326,12.359L31.598,38.117z"/>
 </svg>
