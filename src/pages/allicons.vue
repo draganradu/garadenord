@@ -1,5 +1,6 @@
 <template>
   <div id='page-all-test'>
+    <div v-html="require(`!html-loader!./../assets/test.svg`)"></div>
     <div
       class="page-all-item"
       v-for="(item, index) in vreme"
@@ -63,14 +64,14 @@ $t-col-size: ((100vw - ($t-gap * ($t-cols - 1)) - (2 * $t-padding)) / $t-cols) ;
     text-align: center;
   }
 
-  .icon {
+  .iconb {
     float: none;
     display: inline-block;
     position: relative;
     margin-right: 0;
 
     & svg,
-    & .comp-icon,
+    & use,
     & {
       width: $t-col-size;
       height: $t-col-size;

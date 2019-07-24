@@ -1,13 +1,15 @@
 <template>
-<div
-  class='iconb'
-  :class= 'icons.join(" ")'>
-  <div
-    v-for="(item,index) in icons"
-    :key="index"
-    :class='item'
-    v-html="require(`!html-loader!./../assets/${item}.svg`)"></div>
-  </div>
+    <div
+        class='icon'
+        :class='weatherArray.join(" ")'>
+        <div
+        v-for="(item, index) in icons" :key="index"
+        v-if="icons[index]"
+        class='comp-icon'
+        :class="[icons[index], `${index}` ]"
+        v-html="require(`!html-loader!./../assets/${icons[index]}.svg`)"></div>
+    </div>
+
 </template>
 
 <script>
@@ -15,67 +17,112 @@ export default {
   name: 'weatherIcon',
   data () {
     return {
-      icons: this.weatherFilter(this.weatherArray),
+      icons: {
+        l0: '',
+        l1: '',
+        l2: '',
+        l3: '',
+        l4: '',
+      },
+      code: [ 0, 0, 0, 0, 0 ]
     }
   },
   props: [
     'weatherArray'
   ],
   methods: {
-    weatherFilter (array) {
-      let temp = []
-      array.forEach(element => {
-        let eTemp = this.cleaner(element)
-        if (eTemp) { temp.push(eTemp) }
-      })
-      return temp
+    // day / night / special
+    checkForL0: function () {
+      if (this.weatherArray.indexOf('special') > -1) {
+        return 'special'
+      }
+      if (this.weatherArray.indexOf('noapte') > -1) {
+        return 'luna'
+      }
+      return 'soare'
     },
-    cleaner (weather) {
-      switch (weather) {
-        case 'special':
-        case 'ceata':
-        case 'primavara':
-        case 'toamana':
-        case 'iarna':
-          return weather
-        case 'night':
-        case 'noapte':
-          return 'luna'
-        case 'vara':
-          return 'soare'
-        case 'inorat':
-        case 'innorat':
-        case 'ploaie':
-        case 'ninsoare':
-          return 'nor'
-        default:
-          return false
+
+    // season / vara / iarna
+    checkForL1: function (data) {
+      if (this.weatherArray.indexOf('toamna') > -1) {
+        return 'toamna'
+      }
+      if (this.weatherArray.indexOf('primavara') > -1) {
+        return 'primavara'
+      }
+
+      if (this.weatherArray.indexOf('iarna') > -1) {
+        return 'iarna'
+      }
+      return ''
+    },
+
+    // weather / senin / inorat
+    checkForL2: function () {
+      if (this.weatherArray.indexOf('innorat') > -1 ||
+      this.weatherArray.indexOf('inorat') > -1 ||
+      this.weatherArray.indexOf('ploaie') > -1 ||
+      this.weatherArray.indexOf('ninsoare') > -1) {
+        return 'nor'
+      }
+    },
+
+    // modifier atmosferic / rasarit / apus / ora albastra
+    checkForL3: function () {
+      if (this.weatherArray.indexOf('ceata') > -1) {
+        return 'ceata'
+      }
+    },
+
+    // modifier complex
+    checkForL4: function () {
+      if (this.weatherArray.indexOf('ploaie') > -1 ||
+      this.weatherArray.indexOf('ninsoare') > -1) {
+        return 'nor'
+      }
+      if (this.weatherArray.indexOf('special') > -1 &&
+      this.weatherArray.indexOf('noapte') > -1) {
+        return 'luna'
+      }
+    },
+  },
+  mounted () {
+    this.icons.l0 = this.checkForL0()
+    // -- no special path
+    // if (this.icons.l0 !== 'special') {
+    this.icons.l1 = this.checkForL1()
+    // primavara
+    if (this.icons.l1 === 'primavara') {
+      if (this.icons.l0 === 'soare') {
+        this.icons.l0 = ''
       }
     }
+    // vara
+
+    // toaman
+
+    // iarna
+    if (this.icons.l1 === 'iarna') {
+      if (this.icons.l0 === 'soare') {
+        this.icons.l0 = ''
+      }
+    }
+
+    this.icons.l2 = this.checkForL2()
+    this.icons.l3 = this.checkForL3()
+    this.icons.l4 = this.checkForL4()
+    // }
   }
 }
 </script>
-<style lang="scss">
-@mixin svgScale($scale){
-  transform: scale($scale);
-  stroke-width: (1 / $scale)
-}
 
-.iconb {
+<style lang="scss">
+.icon {
     float:left;
     height: 50px;
     width: 50px;
     overflow: hidden;
     margin-right: 10px;
-    position: relative;
-
-    svg {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-    }
     //color ---------------------------------
     path,
     circle,
@@ -118,6 +165,11 @@ export default {
           }
       }
     }
+
+    .comp-icon {
+        position: absolute;
+    }
+
     // ------ customization
     @mixin svgScale($scale){
       transform: scale($scale);
@@ -131,7 +183,7 @@ export default {
     }
 
     // ------ nor ----
-    &.nor {
+    .nor {
       position: relative;
       left: 15%;
       top: 5%;
