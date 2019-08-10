@@ -27,11 +27,6 @@ export default {
     'image',
     'baseUrl'
   ],
-  methods: {
-    forceRerender () {
-      console.log('A')
-    }
-  }
 }
 </script>
 

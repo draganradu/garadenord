@@ -16,47 +16,72 @@
     <div class='c-4'>
       <em>Pages</em>
       <router-link
-        v-for='(item, index) in page'
-        :key='index'
+        v-for='(itemB, indexB) in page'
+        :key='indexB.name'
         tag='li'
         class='link'
-        :to="{path: '/' + item}"
-      >/{{item}}</router-link>
+        :to="{path: itemB.path}"
+      >/{{itemB.name}}</router-link>
       <hr />
       <em>Files</em>
     </div>
     <div class='c-4'>
-      <em>Errors</em>
+      <div>
+        <em>Errors</em>
       <router-link
-        v-for='(item, index) in error'
-        :key='index'
+        v-for='(itemB, indexB) in errorPage'
+        :key='indexB.name'
         tag='li'
         class='link'
-        :to="{path: '/' + item}"
-      >/{{item}}</router-link>
+        :to="{path: itemB.path}"
+      >/{{itemB.name}}</router-link>
+      </div>
       <hr />
       <em>Tests</em>
       <router-link
-        v-for='(item, index) in test'
-        :key='index'
+        v-for='(itemB, indexB) in testPage'
+        :key='indexB.name'
         tag='li'
         class='link'
-        :to="{path: '/' + item}"
-      >/{{item}}</router-link>
+        :to="{path: itemB.path}"
+      >/{{itemB.name}}</router-link>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 export default {
   name: 'siteMap',
   data () {
+    let routerPages = this.$router.options.routes
     return {
-      main: ['A', 'B'],
-      page: ['sitemap', 'color', 'dev', 'all', 'all/horizontalCarusel'],
-      error: ['e404'],
-      test: ['test']
+      raw: routerPages,
+      main: [],
+      page: routerPages.filter(data => data.name.startsWith('page')),
+      errorPage: routerPages.filter(data => data.name.startsWith('error')),
+      testPage: routerPages.filter(data => data.name.startsWith('test'))
     }
+  },
+  methods: {
+    baseUrlRequest: function () {
+      if (window.location.host.split(':').length === 1) {
+        // production realrequest
+        return window.location.origin + '/static/api'
+      } else {
+        // dev mock request
+        let builtUrl = window.location.origin.split(':')
+        builtUrl.pop()
+        return builtUrl.join(':') + '/garadenord/src/api'
+      }
+    },
+  },
+  mounted () {
+    let _this = this
+    let prodUrl = _this.baseUrlRequest()
+    axios.get(`${prodUrl}/VremeDisponibila.php`).then(response2 => {
+      _this.main = response2.data
+    })
   },
   metaInfo () {
     let _this = {

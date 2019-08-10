@@ -3,7 +3,6 @@ export default {
   name: 'historyHelper',
   methods: {
     standardFormat (data) {
-      console.log(data)
       return [{name: data.name, path: data.path}]
     },
     init: function (data) {

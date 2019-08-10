@@ -23,7 +23,7 @@ export default new Router({
     // --- sitemap -----------------------
     {
       path: '/sitemap',
-      name: 'map',
+      name: 'pageMap',
       component: map
     },
     // --- page -----------------------
@@ -39,18 +39,18 @@ export default new Router({
     },
     {
       path: '/all/horizontalCarusel',
-      name: 'allPageHorizontal',
+      name: 'testAllPageHorizontal',
       component: allHorizontalPage
     },
     {
       path: '/all',
-      name: 'allPage',
+      name: 'testAllPage',
       component: allPage
     },
     // --- test -----------------------
     {
       path: '/test',
-      name: 'allicons',
+      name: 'testAllicons',
       component: allicons
     },
     // --- standard -----------------------
