@@ -1,0 +1,46 @@
+.page {
+    padding: 10vw;
+    @extend .grid;
+  
+    h2 {
+      font-size: 30px;
+      margin-bottom: 10px;
+      font-weight: 400;
+    }
+  
+    em {
+      font-weight: 400;
+    }
+  
+    hr,
+    em,
+    ul,
+    li {
+      display: block;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+
+    .disabled {
+        opacity: 0.2;
+    }
+
+    .feature {
+        background-color: var(--color-three);
+        color: var(--color-one);
+        padding: 20px;
+    }
+  
+    hr {
+      margin-top: 10px;
+      margin-bottom: 10px;
+      max-width: 50%;
+    }
+
+    .link {
+        cursor: pointer;
+        &:hover {
+            color: var(--color-three);
+        }
+    }
+  }

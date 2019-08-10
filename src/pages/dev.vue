@@ -1,27 +1,47 @@
 <template>
-    <div class='row'>
-        <h1>Missing</h1>
-        <div id='crums'>
-          <span>
-            total: {{statistic.total}} |
-            have: {{statistic.have}} |
-            missing: {{statistic.missing}}
-          </span>
-        </div>
-        <ul>
-          <li
+  <div id='map-page' class='page'>
+    <div class='c-12'>
+      <h1>Dev</h1>
+    </div>
+    <div class='c-4'>
+      <h2>Missing</h2>
+      <div class='feature'>
+        total: {{statistic.total}} |
+        have: {{statistic.have}} |
+        missing: {{statistic.missing}}
+      </div>
+      <ul>
+        <li
             v-for='vreme in need'
             :key="vreme"
             v-bind:class = "{ disabled : have.indexOf(vreme) > -1 }" >
             {{vreme}}
-          </li>
-        </ul>
+        </li>
+      </ul>
     </div>
+    <div class='c-4'>
+      <table>
+        <caption>Test</caption>
+        <tr v-for="(testData, index) in imgTest" :key="testData">
+          <td>
+            {{index + 1}}
+          </td>
+          <td>
+            {{testData}}
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class='c-4'>
+    </div>
+  </div>
 </template>
 <script>
 import axios from 'axios'
+import ImageOfTheDay from './../components/frame/image_of_the_day.js'
 export default {
   name: 'DevPage',
+
   data () {
     return {
       need: [],
@@ -31,6 +51,7 @@ export default {
         have: 0,
         missing: 0,
       },
+      imgTest: [],
     }
   },
   mounted () {
@@ -45,15 +66,20 @@ export default {
         axios.get(`${prodUrl}/VremeDisponibila.php`)
           .then(response => {
             _this.have = response.data
-            _this.need = _this.need.concat(_this.have)
+            _this.need = _this.unique(_this.need.concat(_this.have))
 
             _this.statistic.total = _this.need.length
             _this.statistic.have = _this.have.length
             _this.statistic.missing = _this.need.length - _this.have.length
+
+            for (let i = 1; i <= 365; i++) {
+              _this.imgTest.push(_this.ImageOfTheDay(_this.have, i))
+            }
           })
       })
   },
   methods: {
+    ImageOfTheDay: ImageOfTheDay,
     baseUrlRequest: function () {
       if (window.location.host.split(':').length === 1) {
         // production realrequest
@@ -64,22 +90,12 @@ export default {
         builtUrl.pop()
         return builtUrl.join(':') + '/garadenord/src/api'
       }
+    },
+    unique: function (a) {
+      return a.sort().filter(function (item, pos, ary) {
+        return !pos || item !== ary[pos - 1]
+      })
     }
   }
 }
 </script>
-<style lang="scss" scoped>
-  li.disabled {
-    opacity: 0.1;
-  }
-
-  #crums {
-    padding-top: 20px;
-    span {
-      padding: 10px;
-      background-color: var(--color-two);
-      color: var(--color-one);
-    }
-  }
-
-</style>

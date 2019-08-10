@@ -1,5 +1,5 @@
 <template>
-  <div id='map-page'>
+  <div id='map-page' class='page'>
     <div class='c-12'>
       <h2>Landing page</h2>
     </div>
@@ -99,41 +99,5 @@ export default {
 }
 </script>
 <style lang='scss' scoped>
-#map-page {
-  padding: 10vw;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
 
-  h2 {
-    font-size: 30px;
-    margin-bottom: 10px;
-  }
-
-  em {
-    font-weight: 400;
-  }
-
-  hr,
-  em,
-  li {
-    display: block;
-    margin-top: 5px;
-    margin-bottom: 5px;
-  }
-
-  hr {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    max-width: 50%;
-  }
-}
-
-@for $i from 1 through 12 {
-  .c-#{$i} {
-    grid-column: span #{$i};
-  }
-  .r-#{$i} {
-    grid-row: span #{$i};
-  }
-}
 </style>
