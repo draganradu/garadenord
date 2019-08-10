@@ -62,14 +62,6 @@ h2 {
   margin-bottom: 2px;
 }
 
-.row-2 {
-  column-count: 2;
-}
-
-.row-span-all {
-  column-span: all;
-}
-
 .fade-enter-active,
 .fade-leave-active {
   transition-duration: 0.3s;

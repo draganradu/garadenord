@@ -43,6 +43,10 @@ export default {
     let prodUrl = _this.baseUrlRequest()
     axios.get(`${prodUrl}/VremeDisponibila.php`).then(response2 => {
       _this.vreme = response2.data
+
+      axios.get(`${prodUrl}/VremePosibila.php`).then(response1 => {
+        _this.vreme = _this.vreme.concat(response1.data)
+      })
     })
   }
 }
@@ -69,6 +73,10 @@ $t-col-size: ((100vw - ($t-gap * ($t-cols - 1)) - (2 * $t-padding)) / $t-cols) ;
     display: inline-block;
     position: relative;
     margin-right: 0;
+
+    & > div {
+      position: relative;
+    }
 
     & svg,
     & use,

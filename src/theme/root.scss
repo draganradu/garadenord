@@ -8,4 +8,8 @@
     --color-three: gray;
 
     --body-width: #{$body-width};
+    --body-grid-columns: 2;
+    @media (max-width: ($body-width) ){
+        --body-grid-columns: 1;  
+    }
 }

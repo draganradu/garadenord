@@ -55,8 +55,13 @@ export default new Router({
     },
     // --- standard -----------------------
     {
-      path: '*',
+      path: '/:id',
       name: 'standardPage',
+      component: standardPage
+    },
+    {
+      path: '/',
+      name: 'LandingPageRedirected',
       component: standardPage
     }
   ]

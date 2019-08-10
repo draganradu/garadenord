@@ -3,12 +3,20 @@
     <navHead
       :links='[
           ["Color Patterns","/colors"],
-          [ $store.getters.todaysImgTitle, $store.getters.todaysImgurl]
+          [ $store.getters.todaysImgTitle, $store.getters.todaysImgurl],
+          [">","/sitemap"],
         ]'
     />
     <div class='col' id='col-left'>
       <h1 class='row-span-all'>{{siteData.Sitetile}}</h1>
       <h2 class='row-span-all'>{{siteData.Subtitele}}</h2>
+      <div
+        id='site-text'
+        v-on:click= "ShowSiteTextLong"
+        v-bind:class= "{ active: longSiteText }"
+        class='row-span-all'>
+        <p v-html='siteData.description'></p>
+        </div>
       <!-- <button  v-on:click='delyarna'>delete yarna</button> -->
       <div
         v-for='(VremeData, VremeTitle) in VremeObiect'
@@ -18,7 +26,7 @@
         <h3>
           <div
             class='segmentare-vreme-icon'
-            v-html='require("!html-loader!./../assets/" + testa(VremeTitle) + ".svg")'
+            v-html='require("!html-loader!./../assets/" + normWeatherName(VremeTitle) + ".svg")'
           ></div>
           <span>{{VremeTitle}}</span>
         </h3>
@@ -75,7 +83,8 @@ export default {
         count: 0,
         title: '',
         url: ''
-      }
+      },
+      longSiteText: false,
     }
   },
   mounted () {
@@ -147,6 +156,10 @@ export default {
       }
     },
 
+    ShowSiteTextLong: function () {
+      this.longSiteText = !this.longSiteText
+    },
+
     elementByYear: function (arrayLength) {
       let settings = {
         time: {}
@@ -175,12 +188,11 @@ export default {
     },
 
     delyarna: function () {
-      console.log(this.VremeObiect.primavara.primavara_dimineata_senin)
       this.VremeObiect.primavara.primavara_dimineata_senin = false
       this.$forceUpdate()
     },
 
-    testa: function (input) {
+    normWeatherName: function (input) {
       switch (input) {
         case 'vara':
           return 'soare'
@@ -298,10 +310,13 @@ h2 {
 }
 
 #col-left {
+  display: grid;
+  grid-template-columns: repeat(var(--body-grid-columns), 1fr);
+  grid-auto-rows: auto;
+  grid-gap: 0 calc(var(--body-width) / 20);
   background-color: var(--color-one);
   position: relative;
   z-index: 1;
-  column-count: 2;
   box-sizing: border-box;
   max-width: var(--body-width);
   padding: calc(var(--body-width) / 10);
@@ -312,8 +327,6 @@ h2 {
   }
 
   @media (max-width: $body-width) {
-    column-count: 1 !important;
-
     h1 {
       font-size: 20vw;
     }
@@ -324,12 +337,16 @@ h2 {
   }
 
   h2 {
-    margin-bottom: 60px;
+    margin-bottom: 20px;
   }
 
   h1,
   h2 {
     color: var(--color-two);
+  }
+
+  .row-span-all {
+    grid-column: span var(--body-grid-columns);
   }
 }
 
@@ -420,10 +437,6 @@ h2 {
   margin-bottom: 2px;
 }
 
-.row-span-all {
-  column-span: all;
-}
-
 .fade-enter-active,
 .fade-leave-active {
   transition-duration: 0.3s;
@@ -435,4 +448,24 @@ h2 {
 .fade-leave-active {
   opacity: 0;
 }
+
+#site-text {
+  & * {
+    font-size: inherit;
+  }
+  font-size: 18px;
+  line-height: 1.2;
+  p {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: none;
+    -webkit-box-orient: vertical;
+    transition-duration: 0.3s;
+  }
+  &:not(.active) p{
+    -webkit-line-clamp: 3;
+    transition-duration: 0.3s;
+  }
+}
+
 </style>

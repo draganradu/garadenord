@@ -5,7 +5,7 @@
       v-bind:class="{ grayscale: $store.getters.grayscale }"
       v-bind:style="{ backgroundImage: 'url(' + baseUrl +  image + '.jpg)' }">
     <div id='overlay-img'>
-      <icon :weatherArray="image.replace('/', '').split('_')" />
+      <icon :weatherArray="image.replace('/', '').split('_')" :key='image'/>
       <p>{{image.split('_').join(' ').replace('/', '')}}</p>
     </div>
     </div>
@@ -27,6 +27,11 @@ export default {
     'image',
     'baseUrl'
   ],
+  methods: {
+    forceRerender () {
+      console.log('A')
+    }
+  }
 }
 </script>
 
@@ -88,7 +93,7 @@ export default {
         width: ($size * 1.2);
         text-align: center;
 
-        .icon {
+        .iconb {
           float: none;
           display: inline-block;
 
