@@ -36,25 +36,32 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
 
     // htacces
     customBuild.title('htacces')
-    customBuild.moveFile('.htaccess','./src/router/','./dist/')
+    customBuild.copyFile('.htaccess','./src/router/','./dist/')
+
+    // robottext
+    customBuild.title('robottext')
+    customBuild.copyFile('robots.txt','./src/api/','./dist/')
 
     // favicon
     customBuild.title('Favicon')
-    customBuild.moveFile('favicon.ico','./src/assets/','./dist/')
+    customBuild.copyFile('favicon.ico','./src/assets/','./dist/')
 
     // dinamic
     customBuild.title('Dinamic Data')
     customBuild.makeDir('./dist/dinamic/')
-    customBuild.moveFiles('./src/api/','./dist/dinamic/')
+    customBuild.copyFiles('./src/api/','./dist/dinamic/')
 
     // img 
     customBuild.title('Images')
     customBuild.makeDir('./dist/img/')
     customBuild.resizeImageAndCopy('./img/','./dist/img/')
 
-    // buildPattern
+    buildPattern
     customBuild.buildColorPattern('./img/','./dist/dinamic/')
     
+    // sitemap XML
+    customBuild.title('SiteMap XML')
+    customBuild.buildsitemap()
 
     console.log(chalk.cyan('  Build complete.\n'))
     console.log(chalk.yellow(
