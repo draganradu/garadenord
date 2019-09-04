@@ -10,6 +10,11 @@
     <div class='col' id='col-left'>
       <h1 class='row-span-all'>{{siteData.Sitetile}}</h1>
       <h2 class='row-span-all'>{{siteData.Subtitele}}</h2>
+      <socialMedia
+        :git='siteData.social.git'
+        :facebook='siteData.social.facebook'
+        :linkedin='siteData.social.linkedin'
+      />
       <div
         id='site-text'
         v-on:click= "ShowSiteTextLong"
@@ -59,6 +64,7 @@ import axios from 'axios'
 import card from './../components/card'
 import rightImg from './../components/rightimg'
 import navHead from './../components/nav'
+import socialMedia from './../components/social_media'
 import siteData from './../api/site_data.json'
 
 export default {
@@ -66,7 +72,8 @@ export default {
   components: {
     card,
     rightImg,
-    navHead
+    navHead,
+    socialMedia,
   },
   data () {
     return {
