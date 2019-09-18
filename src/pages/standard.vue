@@ -11,17 +11,11 @@
       <h1 class='row-span-all'>{{siteData.Sitetile}}</h1>
       <h2 class='row-span-all'>{{siteData.Subtitele}}</h2>
       <socialMedia
+        class='row-span-all'
         :git='siteData.social.git'
         :facebook='siteData.social.facebook'
         :linkedin='siteData.social.linkedin'
       />
-      <div
-        id='site-text'
-        v-on:click= "ShowSiteTextLong"
-        v-bind:class= "{ active: longSiteText }"
-        class='row-span-all'>
-        <p v-html='siteData.description'></p>
-        </div>
       <!-- <button  v-on:click='delyarna'>delete yarna</button> -->
       <div
         v-for='(VremeData, VremeTitle) in VremeObiect'
@@ -42,6 +36,9 @@
           :disabled='subValue'
         />
       </div>
+      <description
+          :description='siteData.description'
+      />
       <div
         class='segmentare-vreme error'
         v-if='(Object.keys(VremeObiect).length === 0)'
@@ -64,6 +61,7 @@ import axios from 'axios'
 import card from './../components/card'
 import rightImg from './../components/rightimg'
 import navHead from './../components/nav'
+import description from './../components/description'
 import socialMedia from './../components/social_media'
 import siteData from './../api/site_data.json'
 
@@ -74,6 +72,7 @@ export default {
     rightImg,
     navHead,
     socialMedia,
+    description,
   },
   data () {
     return {
@@ -91,7 +90,6 @@ export default {
         title: '',
         url: ''
       },
-      longSiteText: false,
     }
   },
   mounted () {

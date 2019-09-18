@@ -46,6 +46,10 @@ if (settings.commands.indexOf('images') > -1){
     customBuild.resizeImageAndCopy('./img/','./dist/img/')
 }
 
+if (settings.commands.indexOf('color') > -1 || settings.commands.indexOf('colorpattern') > -1){
+    customBuild.title('Color Pattern')
+    customBuild.buildColorPattern('./img/','./dist/dinamic/')
+}
 // buildPattern
 // customBuild.buildColorPattern('./img/','./dist/dinamic/')
 

@@ -10,7 +10,7 @@
   </div>
 </template>
 <script>
-import patterns from './../api/colorPattern.json'
+import patterns from './../../dist/dinamic/colorPattern.json'
 import colorPatterns from './../components/color_patterns'
 export default {
   components: {

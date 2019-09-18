@@ -27,6 +27,7 @@ export default {
 }
 </script>
 <style language lang="scss" scoped>
+@import './../theme/variables.scss';
 
 nav {
   max-width: var(--body-width);
@@ -36,6 +37,10 @@ nav {
   left: 0;
   z-index: 10;
   background-color: white;
+  @media (max-width: ($body-width * 2)) {
+    max-width: 100%;
+  }
+
   a {
     text-transform: uppercase;
     color: rgba(0,0,0,0.4);

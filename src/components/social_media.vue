@@ -1,5 +1,5 @@
 <template>
-  <div class="social_media_component">
+  <div class="social_media_component text-uppercase">
     <span
       v-if="git"
       class="social_link git">

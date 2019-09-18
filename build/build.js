@@ -56,7 +56,7 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
     customBuild.makeDir('./dist/img/')
     customBuild.resizeImageAndCopy('./img/','./dist/img/')
 
-    buildPattern
+    // buildPattern
     customBuild.buildColorPattern('./img/','./dist/dinamic/')
     
     // sitemap XML

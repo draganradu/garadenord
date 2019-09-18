@@ -60,17 +60,28 @@ helpers.resizeImageAndCopy = function (from, to){
 helpers.buildColorPattern = function (from, to) {
     let thief = new ColorThief();
     let output = {}
+    let loading = {
+        i: 0,
+        size: 0,
+        output: 0
+    }
 
     fs.readdir(from, function (err, files) {
         // handling error
         if (err) {
             console.log('Unable to scan directory: ' + err);
         } else {
+            loading.size = Object.keys(files).length
+
             files.forEach(function (file) {
                 output[file.split('.')[0]] = {
                     domniant: thief.getColor(from + file),
                     pattern: thief.getPalette(from + file, 8),
                 }
+                
+                loading.i++
+                loading.output = Math.round(loading.i / loading.size * 100)
+                process.stdout.write("\r" + loading.output + " % " )
             });
 
             fs.writeFile(to + 'colorPattern.json', JSON.stringify(output), 'utf8', (err) => {
