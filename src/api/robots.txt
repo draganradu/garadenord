@@ -1,2 +1,3 @@
+Sitemap: https://www.fotodex.ro/sitemap.xml
 User-agent: *
 Disallow:

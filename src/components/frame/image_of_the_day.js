@@ -1,7 +1,7 @@
 
-var imageOfTheDay = function (arrayOfWeather, day) {
+let imageOfTheDay = function (arrayOfWeather, day) {
   day = day || false
-  var settings = {
+  let settings = {
     count: arrayOfWeather.length,
     time: {
       current: new Date(),

@@ -33,7 +33,10 @@ npm run only color
 
 **For version 0.0.3**
 
-- [ ] google analitics
+- [X] google analitics
+
+- [ ] Add jest test
+    - [ ] build some simple tests
 
 Add version in api file and add it to all page
 - [ ] Version 
@@ -41,6 +44,7 @@ Add version in api file and add it to all page
     - [ ] All page
 
 - [ ] Color Api 
+    - [ ] dose not load properly 
     - [ ] Create a copy in api folder when build
     - [ ] Add it in useing axios in page
 
@@ -53,8 +57,10 @@ Add version in api file and add it to all page
     - [ ] everithing is redirected to www 
     - [ ] everithing is redirected to https 
 
-- [ ] add sitemap to robots.txt 
-
+- [ ] site map
+    - [X] add sitemap to robots.txt 
+    - [ ] fix sitemap 
+    - [ ] resubmit 
 
 **Need to fix backlog**
 
@@ -68,6 +74,7 @@ Starting point is 37 and i expect 70 ish
     - [ ] Add social media pages
     
     - [ ] remove undescores from url
+        - [ ] build normalize name (rename) function
 
     - [ ] add Schema.org to page
 
@@ -76,5 +83,9 @@ Starting point is 37 and i expect 70 ish
     - [ ] set asset compresion for js
     
 - [ ] optimize sitemap xml    
+
+- [ ] refactor Css
+
+- [ ] add helper function
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
