@@ -1,5 +1,7 @@
 <template>
-    <div class="color-bar">
+    <div
+      v-if="color"
+      class="color-bar">
         <div
             class="color-element"
             id="color-bar-1"
@@ -63,7 +65,7 @@
 export default {
   name: 'colorBar',
   props: [
-    'color'
+    'color',
   ],
   data () {
     return {

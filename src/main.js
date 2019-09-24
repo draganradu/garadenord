@@ -9,6 +9,9 @@ import { store } from './store/store'
 Vue.config.productionTip = false
 Vue.use(VueMeta)
 
+// Vue performance
+Vue.config.performance = true
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

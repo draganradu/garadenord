@@ -44,6 +44,9 @@ export default {
   border-color: var(--color-two);
   border-radius: 0;
   text-decoration: none;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
 
   &.disabled {
     pointer-events: none;

@@ -46,11 +46,24 @@ if (settings.commands.indexOf('images') > -1){
     customBuild.resizeImageAndCopy('./img/','./dist/img/')
 }
 
-if (settings.commands.indexOf('color') > -1 || settings.commands.indexOf('colorpattern') > -1){
-    customBuild.title('Color Pattern')
-    customBuild.buildColorPattern('./img/','./dist/dinamic/')
-}
 // buildPattern
+if (settings.commands.indexOf('color') > -1 || settings.commands.indexOf('colorpattern') > -1){
+    customBuild.title('Color Pattern | from prod minified images')
+    customBuild.buildColorPattern('./dist/img/','./dist/dinamic/','./src/api/')
+}
+
+// buildPattern
+if (settings.commands.indexOf('color') > -1 || settings.commands.indexOf('colorpattern') > -1){
+    customBuild.title('Color Pattern | from prod minified images')
+    customBuild.buildColorPattern('./dist/img/','./dist/dinamic/','./src/api/')
+}
+
+if (settings.commands.indexOf('sitemap') > -1 ){
+    //customBuild.title('SiteMap XML')
+    customBuild.buildsitemap()
+}
+
+
 // customBuild.buildColorPattern('./img/','./dist/dinamic/')
 
 // // sitemap XML

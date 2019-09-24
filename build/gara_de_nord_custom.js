@@ -1,7 +1,6 @@
 const fs = require('fs')
 const sharp = require('sharp')
 const ColorThief = require('color-thief')
-const convertToXML = require('xml-js')
 const ExifImage = require('jpeg-exif')
 
 let helpers = {}
@@ -57,7 +56,7 @@ helpers.resizeImageAndCopy = function (from, to){
     });
 }
 
-helpers.buildColorPattern = function (from, to) {
+helpers.buildColorPattern = function (from, prodDestination, devDestination) {
     let thief = new ColorThief();
     let output = {}
     let loading = {
@@ -84,85 +83,17 @@ helpers.buildColorPattern = function (from, to) {
                 process.stdout.write("\r" + loading.output + " % " )
             });
 
-            fs.writeFile(to + 'colorPattern.json', JSON.stringify(output), 'utf8', (err) => {
+            fs.writeFile(devDestination + 'colorPattern.json', JSON.stringify(output), 'utf8', (err) => {
                 if(err){
                     console.log(err)
                 } else {
+                    fs.createReadStream(devDestination + 'colorPattern.json').pipe(fs.createWriteStream(prodDestination + 'colorPattern.json'));
                     console.log(`Success | Built color Pattern Json`)
                 }
             })
         }
     });
 } 
-
-helpers.buildsitemapLine = function (settings) {
-    // tag: xml tag
-    // text: the text inside the tag
-    if (settings) {
-        settings.tag = settings.tag || 'loc';
-        settings.text = settings.text || 'https://www.fotodex.ro/';
-
-        let output = {
-            'type': 'element', 
-            'name': settings.tag, 
-            'elements': [{
-                'type': 'text',
-                'text' : settings.text
-            }] 
-        };
-        return output;
-    } else {
-        console.log('No settings');
-    }
-};
-
-helpers.buildsitemapSet = function (settings) {
-    let temp = [] 
-    if (settings) {
-        //-------------------------- <loc>
-        if(settings.loc){
-            temp.push(
-                helpers.buildsitemapLine({
-                    'tag':'loc',
-                    'text': settings.loc,
-                })
-            );
-        } else {
-            console.log('settings:loc is mandatory')
-            return;
-        } 
-        //-------------------------- <lastmod>
-        if(settings.lastmod){
-            temp.push(
-                helpers.buildsitemapLine({
-                    'tag':'lastmod',
-                    'text': settings.lastmod,
-                })
-            );
-        }
-        //-------------------------- <priority>
-        if(settings.priority){
-            temp.push(
-                helpers.buildsitemapLine({
-                    'tag':'priority',
-                    'text': settings.priority,
-                })
-            );
-        }
-        //-------------------------- <changefreq>
-        if(settings.changefreq){
-            temp.push(
-                helpers.buildsitemapLine({
-                    'tag':'changefreq',
-                    'text': settings.changefreq,
-                })
-            );
-        }
-        return temp;
-    } else {
-        console.log('No settings');
-    }
-}
 
 helpers.lastmod = function (file) {
     if(file){
@@ -175,73 +106,58 @@ helpers.lastmod = function (file) {
     }
 }
 
+helpers.xmlTag = function (settings) {
+    return `<${settings.tag}>${settings.text}</${settings.tag}>\n`
+}
+
+helpers.xmlUrl = function (settings) {
+    temp = '\n'
+    temp += '   ' + helpers.xmlTag ({ tag: 'loc', text: settings.loc })
+    temp += '   ' + helpers.xmlTag ({ tag: 'lastmod', text: settings.lastmod })
+    temp += '   ' + helpers.xmlTag ({ tag: 'priority', text: settings.priority })
+    temp += '   ' + helpers.xmlTag ({ tag: 'changefreq', text: settings.changefreq })
+
+    return helpers.xmlTag({
+        tag: 'url',
+        text: temp
+    })
+}
+
 helpers.buildsitemap = function () {
     fs.readdir('./img/', function (err, files) {
-        var tempFiles = {
-            "declaration": {
-                "attributes": {
-                    "version": "1.0",
-                    "encoding": "utf-8"
-                }
-            },
-            "elements": [
-                {
-                    "type": "element",
-                    "name": "urlset",
-                    "attributes": {
-                        "xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9"
-                    },
-                    "elements": [
-                        {
-                            "type": "element",
-                            "name": "url",
-                            "elements": [ ]
-                        }
-                    ]
-                }
-            ]
-        }
-
-        // landing page
-        tempFiles.elements[0].elements[0].elements = tempFiles.elements[0].elements[0].elements.concat(
-            helpers.buildsitemapSet({
-                'loc': 'https://www.fotodex.ro/',
-                'lastmod' : helpers.lastmod(),
-                'priority': '1',
-                'changefreq': 'daily'
-            })
-        );
-
-        // to doo add the rest
-
-        // handling error
-        if (err) {
-            console.log('Unable to scan directory: ' + err);
-        } else {
-            files.forEach(function (file) {
-
-                // build entry for sitemap
-                tempFiles.elements[0].elements[0].elements = tempFiles.elements[0].elements[0].elements.concat(
-                    helpers.buildsitemapSet({
-                        'loc': 'https://www.fotodex.ro/' + file.split('.')[0],
-                        'lastmod' : helpers.lastmod(file),
-                        'priority': '0.8',
-                        'changefreq': 'yearly'
-                    })
-                );                  
+        
+        let temp = ''
+        temp += '<?xml version="1.0" encoding="utf-8"?>\n'
+        temp += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+        
+        temp += helpers.xmlUrl({
+            loc: 'https://www.fotodex.ro/',
+            lastmod:  helpers.lastmod(),
+            priority: '1',
+            changefreq: 'daily',
+        });
+        
+        for (fileUrl of files) {
+            temp += helpers.xmlUrl({
+                loc: 'https://www.fotodex.ro/' + fileUrl.split('.')[0],
+                lastmod:  helpers.lastmod(fileUrl),
+                priority: '0.8',
+                changefreq: 'yearly',
             });
-
-             // build sitemap file
-            fs.writeFile('./dist/sitemap.xml', convertToXML.js2xml(tempFiles, {compact: false, spaces: 4}), 'utf8', (err) => {
-                if(err){
-                    console.log(err)
-                } else {
-                    console.log(`Success | Built Sitemap.xml`)
-                }
-            })
         }
-    });
+
+        temp += '</urlset>'
+
+        fs.writeFile('./dist/sitemap.xml', temp , 'utf8', (err) => {
+            if(err){
+                console.log(err)
+            } else {
+                console.log(`Success | Built Sitemap.xml`)
+            }
+        })
+    })
 }
+
 
 
 helpers.title = function (title) {

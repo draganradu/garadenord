@@ -20,9 +20,12 @@
       <div
         v-for='(VremeData, VremeTitle) in VremeObiect'
         :key='VremeTitle'
+        :class= "{'row-span-all col-count-2': (VremeTitle === 'special') }"
         class='segmentare-vreme'
       >
-        <h3>
+        <h3
+          :class= "{'col-span-all': (VremeTitle === 'special') }"
+        >
           <div
             class='segmentare-vreme-icon'
             v-html='require("!html-loader!./../assets/" + normWeatherName(VremeTitle) + ".svg")'
@@ -38,6 +41,7 @@
       </div>
       <description
           :description='siteData.description'
+          :version='siteData.version'
       />
       <div
         class='segmentare-vreme error'
@@ -144,6 +148,7 @@ export default {
       })
     })
 
+    // grayscale
     if (localStorage.getItem('grayscale') === 'true') {
       this.$store.commit('setGrayscale', true)
     }
@@ -465,10 +470,6 @@ h2 {
     display: -webkit-box;
     -webkit-line-clamp: none;
     -webkit-box-orient: vertical;
-    transition-duration: 0.3s;
-  }
-  &:not(.active) p{
-    -webkit-line-clamp: 3;
     transition-duration: 0.3s;
   }
 }

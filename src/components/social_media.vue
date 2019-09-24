@@ -32,6 +32,12 @@ export default {
 </script>
 <style lang='scss' scoped>
 .social_media_component {
+  border-style: solid;
+  border-color: var(--color-three);
+  border-width: 1px 0;
+  padding: 10px 0;
+  margin-bottom: 40px;
+
   .social_link:last-child {
     span {
       display: none;

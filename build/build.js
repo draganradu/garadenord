@@ -57,7 +57,7 @@ rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
     customBuild.resizeImageAndCopy('./img/','./dist/img/')
 
     // buildPattern
-    // customBuild.buildColorPattern('./img/','./dist/dinamic/')
+    // customBuild.buildColorPattern('./dist/img/','./dist/dinamic/','./src/api/')
     
     // sitemap XML
     customBuild.title('SiteMap XML')

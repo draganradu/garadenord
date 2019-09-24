@@ -1,3 +1,23 @@
+// Typography
 .text-uppercase {
     text-transform: uppercase;
+}
+
+.text-bold,
+.bold {
+    @extend b;
+}
+// column count
+.col-count-2 {
+    column-count: 2;
+}
+
+.col-span-all {
+    column-span: all;
+}
+
+.fill-block {
+    background-color: var(--color-three);
+    color: var(--color-one);
+    padding: 10px;
 }

@@ -27,7 +27,6 @@
     "vue-meta": "^2.0.4",
     "vue-router": "^3.0.1",
     "vuex": "^3.1.1",
-    "xml-js": "^1.6.11",
     "xml2json": "^0.11.2"
   },
   "devDependencies": {

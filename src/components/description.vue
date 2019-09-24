@@ -1,28 +1,30 @@
 <template>
   <div
     id='site-text'
-    class='row-span-all'
-    v-on:click= "ShowSiteTextLong"
-    v-bind:class= "{ active: longSiteText }"
+    class='row-span-all col-count-2'
   >
-    <p v-html='description'></p>
+    <p
+      v-html='description'
+    ></p>
+    <p class="fill-block" >
+      <span>Version: </span>
+      <span class="bold">{{ version }}</span>
+    </p>
   </div>
 </template>
 <script>
 export default {
   name: 'navigration',
   props: [
-    'description'
-  ],
-  data () {
-    return {
-      longSiteText: false,
-    }
-  },
-  methods: {
-    ShowSiteTextLong: function () {
-      this.longSiteText = !this.longSiteText
-    },
-  }
+    'description',
+    'version'
+  ]
 }
 </script>
+
+<style lang="scss" scoped>
+  p + p {
+    margin-top: 10px;
+    font-size: 12px!important;
+  }
+</style>

@@ -21,7 +21,7 @@ export default {
     return {
       patterns: patterns,
     }
-  }
+  },
 }
 </script>
 <style lang="scss">

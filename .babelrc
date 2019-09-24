@@ -8,6 +8,6 @@
     }],
     "stage-2"
   ],
-  "test": ["jest"],
+  // "test": ["jest"],
   "plugins": ["transform-vue-jsx", "transform-runtime"],
 }
