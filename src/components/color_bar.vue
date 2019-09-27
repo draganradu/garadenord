@@ -4,56 +4,48 @@
       class="color-bar">
         <div
             class="color-element"
-            id="color-bar-1"
             v-bind:style="{ backgroundColor: ColorConvertor(color.domniant) }"
             v-html='TitleConvertor(color.domniant)'
             >
           </div>
         <div
           class="color-element"
-          id="color-bar-2"
           v-bind:style="{ backgroundColor: ColorConvertor(color.pattern[0]) }"
           v-html='TitleConvertor(color.pattern[0])'
           >
         </div>
         <div
           class="color-element"
-          id="color-bar-3"
           v-bind:style="{ backgroundColor: ColorConvertor(color.pattern[1]) }"
           v-html='TitleConvertor(color.pattern[1])'
           >
         </div>
         <div
           class="color-element"
-          id="color-bar-4"
           v-bind:style="{ backgroundColor: ColorConvertor(color.pattern[2]) }"
           v-html='TitleConvertor(color.pattern[2])'
           >
         </div>
         <div
           class="color-element"
-          id="color-bar-5"
           v-bind:style="{ backgroundColor: ColorConvertor(color.pattern[3]) }"
           v-html='TitleConvertor(color.pattern[3])'
           >
         </div>
         <div
           class="color-element"
-          id="color-bar-6"
           v-bind:style="{ backgroundColor: ColorConvertor(color.pattern[4]) }"
           v-html='TitleConvertor(color.pattern[4])'
           >
         </div>
         <div
           class="color-element"
-          id="color-bar-7"
           v-bind:style="{ backgroundColor: ColorConvertor(color.pattern[5]) }"
           v-html='TitleConvertor(color.pattern[5])'
           >
         </div>
         <div
           class="color-element"
-          id="color-bar-8"
           v-bind:style="{ backgroundColor: ColorConvertor(color.pattern[6]) }"
           v-html='TitleConvertor(color.pattern[6])'
           >

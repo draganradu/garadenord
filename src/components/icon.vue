@@ -132,6 +132,10 @@ export default {
         fill: transparent;
     }
 
+    line {
+      stroke-linecap: round;
+    }
+
     // ----- cutout ---
     .cutout {
         fill: var(--color-one);
@@ -206,6 +210,7 @@ export default {
     }
 
     // ----- cutout ---
+    .cutout,
     #cutout {
       path {
         fill: var(--color-one);
@@ -232,6 +237,7 @@ export default {
     .router-link-exact-active &,
     .card:hover & {
       .ceata {
+        .cutout,
         #cutout {
           path {
             fill: var(--color-three);

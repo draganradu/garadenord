@@ -127,7 +127,7 @@ helpers.buildsitemap = function () {
     fs.readdir('./img/', function (err, files) {
         
         let temp = ''
-        temp += '<?xml version="1.0" encoding="utf-8"?>\n'
+        temp += '\n'
         temp += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
         
         temp += helpers.xmlUrl({

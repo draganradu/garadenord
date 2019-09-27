@@ -28,10 +28,10 @@ npm run only color
 ```
 ## Metrics
 
-|  v        | Size/JS   | Size/Css  | Seo   | Load time     |
-| ----------| --------- | -------   | ---   | ------------- |
-| 0.0.2     | 2.8 Mb    | 4.7 Kb    | 37    | 1802 ms       |
-| 0.0.3     | 3.4 Mb    | 4.7 Kb    | 46    | 1627 ms       |
+|  [v](doc/v_log.md) | [Size/JS](doc/js_size.png)   | [Size/Css](doc/css_size.png)  | [Seo](https://www.woorank.com/en/www/fotodex.ro)   | [Load time](doc/load_time.png)     | [LH P](doc/lh.png)   | [LH A](doc/lh.png) | [LH B](doc/lh.png)  | [LH S](doc/lh.png)  |
+| ---       | ---       | ---       | ---   | ---           | ---   | ---   | ---   | ---   |
+| 0.0.2     | 2.8 Mb    | 4.7 Kb    | 37    | 1802 ms       |       |       |       |       |
+| 0.0.3     | 3.4 Mb    | 4.7 Kb    | 46    | 1627 ms       | 80    | 86    | 86    | 100   |      
 | 0.0.4     |           |           |       |               |
 
 ## ToDo
@@ -63,6 +63,7 @@ npm run only color
 
     - [ ] set asset compresion for js
 
+- [ ] fix iarna cutout circle in the middle
 **For version 0.0.3**
 
 - [X] Google analitics integration

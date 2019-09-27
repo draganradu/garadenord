@@ -103,6 +103,10 @@
           stroke: var(--color-three) !important;
           
         }
+
+        .cutout {
+          fill: transparent;
+        }
       }
     }
     &.error {

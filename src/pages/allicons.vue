@@ -1,6 +1,5 @@
 <template>
   <div id='page-all-test'>
-    <div v-html="require(`!html-loader!./../assets/test.svg`)"></div>
     <div
       class="page-all-item"
       v-for="(item, index) in vreme"
