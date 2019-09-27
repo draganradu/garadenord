@@ -87,7 +87,6 @@ export default {
     let _this = {
       meta: {
         title: 'SiteMap | Gara de Nord',
-        description: 'radu',
         url: 'https://www.fotodex.ro' + this.$route.path
       }
     }

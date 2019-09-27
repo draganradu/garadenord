@@ -5,81 +5,87 @@
         <div
             class="color-element"
             id="color-bar-1"
-            v-bind:style="{ backgroundColor: 'rgb(' + color.domniant[0] + ',' + color.domniant[1] + ',' + color.domniant[2] + ')' }"
+            v-bind:style="{ backgroundColor: ColorConvertor(color.domniant) }"
             v-html='TitleConvertor(color.domniant)'
             >
-
           </div>
         <div
           class="color-element"
           id="color-bar-2"
-          v-bind:style="{ backgroundColor: 'rgb(' + color.pattern[0][0] + ',' + color.pattern[0][1] + ',' + color.pattern[0][2] + ')' }"
+          v-bind:style="{ backgroundColor: ColorConvertor(color.pattern[0]) }"
           v-html='TitleConvertor(color.pattern[0])'
           >
         </div>
         <div
           class="color-element"
           id="color-bar-3"
-          v-bind:style="{ backgroundColor: 'rgb(' + color.pattern[1][0] + ',' + color.pattern[1][1] + ',' + color.pattern[1][2] + ')' }"
+          v-bind:style="{ backgroundColor: ColorConvertor(color.pattern[1]) }"
           v-html='TitleConvertor(color.pattern[1])'
           >
         </div>
         <div
           class="color-element"
           id="color-bar-4"
-          v-bind:style="{ backgroundColor: 'rgb(' + color.pattern[2][0] + ',' + color.pattern[2][1] + ',' + color.pattern[2][2] + ')' }"
+          v-bind:style="{ backgroundColor: ColorConvertor(color.pattern[2]) }"
           v-html='TitleConvertor(color.pattern[2])'
           >
         </div>
         <div
           class="color-element"
           id="color-bar-5"
-          v-bind:style="{ backgroundColor: 'rgb(' + color.pattern[3][0] + ',' + color.pattern[3][1] + ',' + color.pattern[3][2] + ')' }"
+          v-bind:style="{ backgroundColor: ColorConvertor(color.pattern[3]) }"
           v-html='TitleConvertor(color.pattern[3])'
           >
         </div>
         <div
           class="color-element"
           id="color-bar-6"
-          v-bind:style="{ backgroundColor: 'rgb(' + color.pattern[4][0] + ',' + color.pattern[4][1] + ',' + color.pattern[4][2] + ')' }"
+          v-bind:style="{ backgroundColor: ColorConvertor(color.pattern[4]) }"
           v-html='TitleConvertor(color.pattern[4])'
           >
         </div>
         <div
           class="color-element"
           id="color-bar-7"
-          v-bind:style="{ backgroundColor: 'rgb(' + color.pattern[5][0] + ',' + color.pattern[5][1] + ',' + color.pattern[5][2] + ')' }"
+          v-bind:style="{ backgroundColor: ColorConvertor(color.pattern[5]) }"
           v-html='TitleConvertor(color.pattern[5])'
           >
         </div>
         <div
           class="color-element"
           id="color-bar-8"
-          v-bind:style="{ backgroundColor: 'rgb(' + color.pattern[6][0] + ',' + color.pattern[6][1] + ',' + color.pattern[6][2] + ')' }"
+          v-bind:style="{ backgroundColor: ColorConvertor(color.pattern[6]) }"
           v-html='TitleConvertor(color.pattern[6])'
           >
         </div>
     </div>
 </template>
 <script>
+import colorHelper from './../components/frame/color'
 export default {
   name: 'colorBar',
   props: [
     'color',
+    'grayscale'
   ],
   data () {
     return {
-      colorArray: []
+      colorArray: [],
     }
   },
   methods: {
     TitleConvertor: function (colorArray) {
-      return '<span>Hex: <b>#' + this.rgbToHex(colorArray[0], colorArray[1], colorArray[2]) + '</b></span>'
+      if (this.grayscale) {
+        colorArray = colorHelper.grayscale(colorArray)
+      }
+      return '<span>Hex: <b>#' + colorHelper.rgbToHex(colorArray) + '</b></span>'
     },
-
-    rgbToHex: function (r, g, b) {
-      return ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
-    }
+    ColorConvertor: function (colorArray) {
+      if (this.grayscale) {
+        colorArray = colorHelper.grayscale(colorArray)
+      }
+      return 'rgb(' + colorArray[0] + ',' + colorArray[1] + ',' + colorArray[2] + ')'
+    },
   }
 }
 </script>
@@ -90,7 +96,7 @@ export default {
         $color-bar-width: 10px;
 
         width: $color-bar-width;
-        background-color: white;
+        background-color: var(--color-one);
         padding-right: 10px;
         position: fixed;
         left: var(--body-width);
@@ -133,7 +139,7 @@ export default {
             span {
               opacity: 1;
               display: block;
-              background-color: white;
+              background-color: var(--color-one);
               padding: 8px;
             }
           }

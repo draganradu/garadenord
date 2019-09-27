@@ -5,8 +5,8 @@
       class="page-all-item"
       v-for="(item, index) in vreme"
       :key="index" >
-        <icon :weatherArray="item.split('_')" />
-        <h5>{{item.split('_').join(' ')}}</h5>
+        <icon :weatherArray="item.split('-')" />
+        <h5>{{item.split('-').join(' ')}}</h5>
       </div>
   </div>
 </template>

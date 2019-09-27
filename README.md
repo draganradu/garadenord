@@ -2,7 +2,7 @@
 
 > http://www.fotodex.ro/
 
-**0.0.3** | Fotodex gara de nord is a light study. A vue 3 website made to showcase the diferent ways the light interacts with the scenary. And force me the author to play a bit more with tehnologies i will have to use 3 years from now when they are stable and conviniontly obsilete.
+**0.0.4** | Fotodex gara de nord is a light study. A vue 3 website made to showcase the diferent ways the light interacts with the scenary. And force me the author to play a bit more with tehnologies i will have to use 3 years from now when they are stable and conviniontly obsilete.
 
 ## Build Setup
 
@@ -32,8 +32,36 @@ npm run only color
 | ----------| --------- | -------   | ---   | ------------- |
 | 0.0.2     | 2.8 Mb    | 4.7 Kb    | 37    | 1802 ms       |
 | 0.0.3     | 3.4 Mb    | 4.7 Kb    | 46    | 1627 ms       |
+| 0.0.4     |           |           |       |               |
 
 ## ToDo
+
+**For version 0.0.4**
+
+- [x] add General helper function
+- [x] add Color helper function
+- [X] remove bootrsap 4
+- [ ] Cleanup SVG
+- [ ] make meta description work
+- [ ] deploy by ftp
+- [ ] build version fix pages to show all the modifications 
+- [x] add grayscale to color bar
+- [ ] Seo
+    - [ ] Title need studiu de lumina;
+    - [ ] Add meta description useing color codes
+
+    - [ ] 404 page need 404 head
+
+    - [ ] Add social media pages
+    
+    - [ ] remove undescores from url
+        - [ ] build normalize name (rename) function
+
+    - [ ] add Schema.org to page
+
+    - [ ] Open Graph Protocol
+
+    - [ ] set asset compresion for js
 
 **For version 0.0.3**
 
@@ -67,30 +95,11 @@ npm run only color
 **Need to fix backlog**
 
 Starting point is 37 and i expect 70 ish
-- [ ] deploy by ftp
-
-- [ ] Seo
-    - [ ] Title need studiu de lumina;
-    - [ ] Add meta description useing color codes
-
-    - [ ] 404 page need 404 head
-
-    - [ ] Add social media pages
-    
-    - [ ] remove undescores from url
-        - [ ] build normalize name (rename) function
-
-    - [ ] add Schema.org to page
-
-    - [ ] Open Graph Protocol
-
-    - [ ] set asset compresion for js
-
-- [ ] build version fix pages to show all the modifications  
+ 
 - [ ] convert to a 80 ish height for cards and align to middle
-- [ ] add grayscale to color bar
-- [ ] add for in color bar 
 - [ ] fix landscape preview screen  
+
+- [ ] Add audio
 
 - [ ] Add jest test
     - [ ] build some simple tests
@@ -99,11 +108,11 @@ Starting point is 37 and i expect 70 ish
 
 - [ ] refactor Css
 
-- [ ] add helper function
-
 - [ ] refactor readme md 
-
- - [ ] build component to fix _this.baseUrlRequest() multiple requests or put it in
+- [ ] convert PHP scripts to jsons
+- [ ] first HTML loader
+- [ ] separate JS from CSS from webpack
+- [ ] color helperpage
 
 https://medium.com/@meakaakka/a-beginners-guide-to-writing-a-kickass-readme-7ac01da88ab3
 

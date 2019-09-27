@@ -20,8 +20,8 @@ export default {
   ],
   data () {
     return {
-      title: this.raw.replace(/_/g, ' '),
-      weather: this.raw.split('_')
+      title: this.raw.replace(/-/g, ' '),
+      weather: this.raw.split('-')
     }
   }
 }

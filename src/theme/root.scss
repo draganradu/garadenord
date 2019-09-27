@@ -1,8 +1,11 @@
+@import '_mixins.scss';
 @import 'normalize.scss';
 @import 'variables';
 @import 'grid';
 @import 'page';
 @import 'frame';
+
+@import 'components/standard_left.scss';
 // @import 'icons';
 
 :root {
@@ -12,6 +15,7 @@
 
     --body-width: #{$body-width};
     --body-grid-columns: 2;
+
     @media (max-width: ($body-width) ){
         --body-grid-columns: 1;  
     }

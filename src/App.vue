@@ -7,6 +7,7 @@
 <script>
 import siteData from './api/site_data.json'
 import siteHistory from './components/History'
+import { trimTags } from './components/frame/helper'
 
 export default {
   name: 'app',
@@ -20,7 +21,7 @@ export default {
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: siteData.description },
+        { name: 'description', content: trimTags(siteData.description, 180) },
         { rel: 'favicon', href: 'http://fotodex.ro/favicon.ico' }
       ]
     }
@@ -37,19 +38,10 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Oswald:300,400,700&display=swap');
 @import './theme/root.scss';
 //-- typography
-body {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 300;
-  font-size: 25px;
-  line-height: 1;
-}
 
 h1 {
-  font-weight: 800;
   margin-bottom: 0;
-  line-height: 0.9;
   font-size: 100px;
-  text-transform: uppercase;
   max-width: 450px;
 }
 
@@ -57,21 +49,16 @@ h2 {
   margin-bottom: 60px;
 }
 
-.btn {
-  margin-right: 2px;
-  margin-bottom: 2px;
-}
+// .fade-enter-active,
+// .fade-leave-active {
+//   transition-duration: 0.3s;
+//   transition-property: opacity;
+//   transition-timing-function: ease;
+// }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition-duration: 0.3s;
-  transition-property: opacity;
-  transition-timing-function: ease;
-}
-
-.fade-enter,
-.fade-leave-active {
-  opacity: 0
-}
+// .fade-enter,
+// .fade-leave-active {
+//   opacity: 0
+// }
 
 </style>

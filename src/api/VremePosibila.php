@@ -2,7 +2,7 @@
 header('Access-Control-Allow-Origin: *');
 
 $anotim = ['primavara','vara','toamna','iarna'];
-$ora = ['dimineata','pranz','seara','ora_albastra','ora_de_aur','noapte'];
+$ora = ['dimineata','pranz','seara','ora-albastra','ora-de-aur','noapte'];
 $vreme = ['senin','innorat','ceata','ploaie','ninsoare'];
 $temp = [];
 
@@ -20,7 +20,7 @@ foreach ($anotim as $vAnotimp) {
     foreach ($ora as $vOra) {
         foreach ($vreme as $vVreme) {
             if(!exception($vAnotimp,$vOra,$vVreme)){
-                array_push($temp,"{$vAnotimp}_{$vOra}_{$vVreme}");
+                array_push($temp,"{$vAnotimp}-{$vOra}-{$vVreme}");
             }
         }
     }

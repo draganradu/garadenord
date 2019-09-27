@@ -60,7 +60,7 @@ export default {
     .history404 {
       padding: 20px;
       a {
-        color: black;
+        color: var(--color-two);
         margin-right: 10px;
       }
     }

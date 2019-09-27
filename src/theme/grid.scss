@@ -1,13 +1,33 @@
+// -- Grid | 0 | Pattern
+// -------------------------------
 .grid {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
 }
 
+.grid-12 {
+  @extend .grid;
+}
+
 @for $i from 1 through 12 {
-    .c-#{$i} {
-      grid-column: span #{$i};
-    }
-    .r-#{$i} {
-      grid-row: span #{$i};
-    }
+  .c-#{$i} {
+    grid-column: span #{$i};
   }
+  .r-#{$i} {
+    grid-row: span #{$i};
+  }
+}
+
+// -- Grid | 1 | column count
+// -------------------------------
+.col-count-2 {
+  column-count: 2;
+}
+
+.col-span-all {
+  column-span: all;
+}
+
+.row-span-all {
+  grid-column: span var(--body-grid-columns);
+}

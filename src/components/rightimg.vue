@@ -3,6 +3,7 @@
       <colorBar
         class="landing-colorbar"
         :color="ColorPatterns[image.replace('/', '')]"
+        :grayscale="$store.getters.grayscale"
       ></colorBar>
     <div
       v-show="fullScreen"
@@ -14,10 +15,11 @@
       </div>
       <colorBar
         :color="ColorPatterns[image.replace('/', '')]"
+        :grayscale="$store.getters.grayscale"
       ></colorBar>
       <div id='fullscreen-overlay-img'>
-        <icon :weatherArray="image.replace('/', '').split('_')" :key='image'/>
-        <p>{{image.split('_').join(' ').replace('/', '')}}</p>
+        <icon :weatherArray="image.replace('/', '').split('-')" :key='image'/>
+        <p>{{image.split('-').join(' ').replace('/', '')}}</p>
       </div>
     </div>
     <div
@@ -28,8 +30,8 @@
       v-on:click="fullScreenView"
     >
       <div id='overlay-img'>
-        <icon :weatherArray="image.replace('/', '').split('_')" :key='image'/>
-        <p>{{image.split('_').join(' ').replace('/', '')}}</p>
+        <icon :weatherArray="image.replace('/', '').split('-')" :key='image'/>
+        <p>{{image.split('-').join(' ').replace('/', '')}}</p>
       </div>
     </div>
     <div
@@ -98,7 +100,7 @@ export default {
     fullScreen: function (val) {
       if (val) {
         let temp = {
-          text: this.image.replace('/', '').replace(/_/g, ' ').toUpperCase(),
+          text: this.image.replace('/', '').replace(/-/g, ' ').toUpperCase(),
           baseColor: this.ColorPatterns[this.image.replace('/', '')],
           textOutput: ''
         }
@@ -170,7 +172,7 @@ export default {
         transition: 0.5s;
         opacity: 0;
         display: inline-block;
-        background-color: white;
+        background-color: var(--color-one);
         padding: ($size * 0.1);
         position: relative;
         width: ($size * 1.2);
@@ -212,7 +214,7 @@ export default {
     bottom: 0;
     z-index: 100;
     padding: 5vw;
-    background-color: white;
+    background-color: var(--color-one);
 
     @media (orientation: landscape) {
       padding: 2vw;

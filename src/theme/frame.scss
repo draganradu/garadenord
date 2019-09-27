@@ -1,4 +1,25 @@
-// Typography
+// -- Typography | 0 | general
+// -------------------------------
+body {
+    font-family: 'Oswald', sans-serif;
+    font-weight: 300;
+}
+
+h1 {
+    @extend b;
+    @extend .text-uppercase;
+    font-size: 100px;
+    line-height: 0.9;
+    max-width: 450px;
+}
+
+h2 {
+    @extend b;
+    font-size: 30px;
+}
+
+// -- Typography | 1 | modifiers
+// -------------------------------
 .text-uppercase {
     text-transform: uppercase;
 }
@@ -7,13 +28,9 @@
 .bold {
     @extend b;
 }
-// column count
-.col-count-2 {
-    column-count: 2;
-}
 
-.col-span-all {
-    column-span: all;
+.text-center {
+    text-align: center;
 }
 
 .fill-block {
@@ -21,3 +38,13 @@
     color: var(--color-one);
     padding: 10px;
 }
+
+// -- Position | 2 | modifiers
+// -------------------------------
+.p-absolute {
+    position: absolute;
+  }
+  
+  .p-relative {
+    position: relative;
+  }

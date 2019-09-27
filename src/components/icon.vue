@@ -6,7 +6,8 @@
     v-for="(item,index) in icons"
     :key="index"
     :class='item'
-    v-html="require(`!html-loader!./../assets/${item}.svg`)"></div>
+    v-html="require(`!html-loader!./../assets/${item}.svg`)">
+    </div>
   </div>
 </template>
 

@@ -41,7 +41,7 @@ export default {
 </script>
 <style lang="scss" scope>
   .color-pattern {
-    background-color: white;
+    background-color: var(--color-one);
     border-radius: 5px;
     // filter: drop-shadow(30px 10px 4px #4444dd);
     h2 {

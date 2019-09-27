@@ -1,0 +1,114 @@
+#col-left {
+    @extend .grid;
+    @extend .p-relative;
+    background-color: var(--color-one);
+    box-sizing: border-box;
+    grid-auto-rows: auto;
+    grid-gap: 0 calc(var(--body-width) / 20);
+    grid-template-columns: repeat(var(--body-grid-columns), 1fr);
+    max-width: var(--body-width);
+    padding: calc(var(--body-width) / 10);
+    z-index: 1;
+    
+    @media (max-width: ($body-width * 2)) {
+      margin-top: $img-phanel;
+      max-width: 100%;
+    }
+  
+    @media (max-width: $body-width) {
+      h1 {
+        font-size: 20vw;
+      }
+  
+      h2 {
+        font-size: 5vw;
+      }
+    }
+  
+    h2 {
+      margin-bottom: 20px;
+    }
+  
+    h1,
+    h2 {
+      color: var(--color-two);
+    }
+  }
+
+  .segmentare-vreme {
+    $font-size: 10px;
+    $iconsize: 120px;
+    $show: 0.7;
+    $line: 2px;
+  
+    border: 1px solid transparent;
+    page-break-inside: avoid;
+
+    h3 {
+        @extend .p-relative;
+        color: var(--color-three);
+        font-size: $font-size;
+        letter-spacing: 2px;
+        margin-bottom: ($iconsize / 3);
+        overflow: hidden;
+        padding: ($iconsize * $show) 0 0;
+  
+      span {
+        @extend .p-relative;
+        background-color: var(--color-one);
+        padding: 0 10px;
+        z-index: 3;
+      }
+  
+      &:before,
+      &:after {
+        @extend .p-absolute;
+        content: '';
+        right: 0;
+        left: 0;
+      }
+  
+      &:before {
+        background-color: var(--color-three);
+        bottom: ($font-size / 2);
+        height: $line;
+        z-index: 2;
+      }
+  
+      &:after {
+        background-color: var(--color-one);
+        bottom: 0%;
+        height: ($font-size / 2);
+        z-index: 1;
+      }
+    }
+  
+    &-icon {
+      bottom: 0;
+      left: 50%;
+      transform: translate(-100%, ((1 - $show) * 100%));
+      &,
+      & svg {
+        @extend .p-absolute;
+        @include size($iconsize);  
+      }
+  
+      svg {
+        circle,
+        line,
+        path,
+        polyline {
+          fill: transparent !important;
+          stroke-width: ($line / ($iconsize / 50px));
+          stroke: var(--color-three) !important;
+          
+        }
+      }
+    }
+    &.error {
+      @extend .p-relative;
+      min-height: 60px;
+      background-color: lightgray;
+      margin-bottom: 10px;
+    }
+  }

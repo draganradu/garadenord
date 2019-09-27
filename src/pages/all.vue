@@ -9,7 +9,7 @@
         v-bind:style="{
         backgroundImage: 'url(' + baseUrl + '/' +  item + '.jpg)'}" >
         </div>
-        <h5>{{item.split('_').join(' ')}}</h5>
+        <h5>{{item.split('-').join(' ')}}</h5>
       </div>
   </div>
 </template>

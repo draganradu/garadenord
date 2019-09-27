@@ -52,12 +52,6 @@ if (settings.commands.indexOf('color') > -1 || settings.commands.indexOf('colorp
     customBuild.buildColorPattern('./dist/img/','./dist/dinamic/','./src/api/')
 }
 
-// buildPattern
-if (settings.commands.indexOf('color') > -1 || settings.commands.indexOf('colorpattern') > -1){
-    customBuild.title('Color Pattern | from prod minified images')
-    customBuild.buildColorPattern('./dist/img/','./dist/dinamic/','./src/api/')
-}
-
 if (settings.commands.indexOf('sitemap') > -1 ){
     //customBuild.title('SiteMap XML')
     customBuild.buildsitemap()

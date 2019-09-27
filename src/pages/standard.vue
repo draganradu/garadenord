@@ -16,7 +16,6 @@
         :facebook='siteData.social.facebook'
         :linkedin='siteData.social.linkedin'
       />
-      <!-- <button  v-on:click='delyarna'>delete yarna</button> -->
       <div
         v-for='(VremeData, VremeTitle) in VremeObiect'
         :key='VremeTitle'
@@ -24,6 +23,7 @@
         class='segmentare-vreme'
       >
         <h3
+          class="text-center text-uppercase"
           :class= "{'col-span-all': (VremeTitle === 'special') }"
         >
           <div
@@ -40,6 +40,7 @@
         />
       </div>
       <description
+          v-if='(Object.keys(VremeObiect).length !== 0)'
           :description='siteData.description'
           :version='siteData.version'
       />
@@ -63,37 +64,34 @@
 <script>
 import axios from 'axios'
 import card from './../components/card'
-import rightImg from './../components/rightimg'
-import navHead from './../components/nav'
 import description from './../components/description'
-import socialMedia from './../components/social_media'
+import navHead from './../components/nav'
+import rightImg from './../components/rightimg'
 import siteData from './../api/site_data.json'
+import socialMedia from './../components/social_media'
+import { trimTags } from './../components/frame/helper'
 
 export default {
   name: 'GaraDeNord',
   components: {
     card,
-    rightImg,
-    navHead,
-    socialMedia,
     description,
+    navHead,
+    rightImg,
+    socialMedia,
   },
   data () {
     return {
-      VremePosibila: [],
-      VremeDisponibila: [],
-      VremeObiect: {},
-      rutaimg: this.$route.path,
-      siteData: siteData,
       baseUrl:
-        window.location.host.split(':').length > 1
-          ? 'http://localhost/garadenord/img'
-          : window.location.origin + '/img',
+        window.location.host.split(':').length > 1 ? 'http://localhost/garadenord/img' : window.location.origin + '/img',
       pickOfTheDay: {
         count: 0,
         title: '',
         url: ''
       },
+      rutaimg: this.$route.path,
+      siteData: siteData,
+      VremeObiect: {},
     }
   },
   mounted () {
@@ -103,7 +101,7 @@ export default {
     axios.get(`${prodUrl}/VremePosibila.php`).then(response => {
       // initial posibile variants
       for (let i = 0; i < response.data.length; i++) {
-        let temp = response.data[i].split('_')
+        let temp = response.data[i].split('-')
         if (!_this.VremeObiect.hasOwnProperty(temp[0])) {
           _this.VremeObiect[temp[0]] = {}
         }
@@ -114,7 +112,7 @@ export default {
         // set variables that are true
         _this.pickOfTheDay.count = _this.elementByYear(response.data.length)
         for (let i = 0; i < response.data.length; i++) {
-          let temp = response.data[i].split('_')
+          let temp = response.data[i].split('-')
           if (!_this.VremeObiect.hasOwnProperty(temp[0])) {
             _this.VremeObiect[temp[0]] = {}
           }
@@ -132,7 +130,7 @@ export default {
           // e404 page
           let e404 = {}
           e404.fullRout = _this.rutaimg.replace('/', '')
-          e404.sezon = e404.fullRout.split('_')[0]
+          e404.sezon = e404.fullRout.split('-')[0]
 
           if (
             !_this.VremeObiect.hasOwnProperty(e404.sezon) ||
@@ -166,10 +164,6 @@ export default {
       }
     },
 
-    ShowSiteTextLong: function () {
-      this.longSiteText = !this.longSiteText
-    },
-
     elementByYear: function (arrayLength) {
       let settings = {
         time: {}
@@ -192,16 +186,6 @@ export default {
       )
     },
 
-    randomElement: function (array) {
-      let randTemp = Math.floor(Math.random() * array.length)
-      return array[randTemp]
-    },
-
-    delyarna: function () {
-      this.VremeObiect.primavara.primavara_dimineata_senin = false
-      this.$forceUpdate()
-    },
-
     normWeatherName: function (input) {
       switch (input) {
         case 'vara':
@@ -220,7 +204,7 @@ export default {
         // e404
         let e404 = {}
         e404.fullRout = this.rutaimg.replace('/', '')
-        e404.sezon = e404.fullRout.split('_')[0]
+        e404.sezon = e404.fullRout.split('-')[0]
 
         if (
           !this.VremeObiect.hasOwnProperty(e404.sezon) ||
@@ -248,10 +232,10 @@ export default {
         title:
           this.$route.path
             .replace('/', '')
-            .split('_')
+            .split('-')
             .join(' ')
             .toUpperCase() + ' | Gara de Nord',
-        description: 'radu',
+        description: trimTags(siteData.description, 180),
         url: 'https://www.fotodex.ro' + this.$route.path
       }
     }
@@ -263,8 +247,7 @@ export default {
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { name: 'description', content: _this.meta.description },
-        { rel: 'favicon', href: 'http://fotodex.ro/favicon.ico' },
+        { name: 'description', content: _this.description },
 
         // OG Tag
         { property: 'og:title', content: _this.meta.title },
@@ -294,184 +277,6 @@ export default {
 </script>
 
 <style lang='scss'>
-// @import 'node_modules/bootstrap/scss/bootstrap'
-// @import 'node_modules/bootstrap-vue/src/index.scss'
 @import url('https://fonts.googleapis.com/css?family=Oswald:300,400,700&display=swap');
-@import './../theme/variables.scss';
-
-//-- General theme
-//-- -------------------------------------
-//-- 1 | Typography
-body {
-  font-family: 'Oswald', sans-serif;
-  font-weight: 300;
-}
-
-h1 {
-  font-weight: 800;
-  line-height: 0.9;
-  font-size: 100px;
-  text-transform: uppercase;
-}
-
-h2 {
-  font-weight: 800;
-  font-size: 30px;
-}
-
-#col-left {
-  display: grid;
-  grid-template-columns: repeat(var(--body-grid-columns), 1fr);
-  grid-auto-rows: auto;
-  grid-gap: 0 calc(var(--body-width) / 20);
-  background-color: var(--color-one);
-  position: relative;
-  z-index: 1;
-  box-sizing: border-box;
-  max-width: var(--body-width);
-  padding: calc(var(--body-width) / 10);
-
-  @media (max-width: ($body-width * 2)) {
-    max-width: 100%;
-    margin-top: $img-phanel;
-  }
-
-  @media (max-width: $body-width) {
-    h1 {
-      font-size: 20vw;
-    }
-
-    h2 {
-      font-size: 5vw;
-    }
-  }
-
-  h2 {
-    margin-bottom: 20px;
-  }
-
-  h1,
-  h2 {
-    color: var(--color-two);
-  }
-
-  .row-span-all {
-    grid-column: span var(--body-grid-columns);
-  }
-}
-
-.segmentare-vreme {
-  $font-size: 10px;
-  $iconsize: 120px;
-  $show: 0.7;
-  $line: 2px;
-
-  page-break-inside: avoid;
-  border: 1px solid transparent;
-  h3 {
-    color: var(--color-three);
-    text-transform: uppercase;
-    text-transform: uppercase;
-    text-align: center;
-    padding: ($iconsize * $show) 0 0;
-    margin-bottom: ($iconsize / 3);
-    font-size: $font-size;
-    letter-spacing: 2px;
-    position: relative;
-    overflow: hidden;
-
-    span {
-      background-color: var(--color-one);
-      position: relative;
-      padding: 0 10px;
-      z-index: 3;
-    }
-
-    &:before,
-    &:after {
-      content: '';
-      position: absolute;
-      right: 0;
-      left: 0;
-    }
-
-    &:before {
-      background-color: var(--color-three);
-      bottom: ($font-size / 2);
-      height: $line;
-      z-index: 2;
-    }
-
-    &:after {
-      bottom: 0%;
-      height: ($font-size / 2);
-      background-color: var(--color-one);
-      z-index: 1;
-    }
-  }
-
-  &-icon {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-100%, ((1 - $show) * 100%));
-    // position: relative;
-    &,
-    & svg {
-      width: $iconsize;
-      height: $iconsize;
-      position: absolute;
-    }
-
-    svg {
-      path,
-      circle,
-      polyline,
-      line {
-        fill: transparent !important;
-        stroke: var(--color-three) !important;
-        stroke-width: ($line / ($iconsize / 50px));
-      }
-    }
-  }
-  &.error {
-    min-height: 60px;
-    background-color: lightgray;
-    margin-bottom: 10px;
-    position: relative;
-  }
-}
-
-.btn {
-  margin-right: 2px;
-  margin-bottom: 2px;
-}
-
-.fade-enter-active,
-.fade-leave-active {
-  transition-duration: 0.3s;
-  transition-property: opacity;
-  transition-timing-function: ease;
-}
-
-.fade-enter,
-.fade-leave-active {
-  opacity: 0;
-}
-
-#site-text {
-  & * {
-    font-size: inherit;
-  }
-  font-size: 18px;
-  line-height: 1.2;
-  p {
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: none;
-    -webkit-box-orient: vertical;
-    transition-duration: 0.3s;
-  }
-}
 
 </style>

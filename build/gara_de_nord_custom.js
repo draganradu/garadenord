@@ -97,7 +97,7 @@ helpers.buildColorPattern = function (from, prodDestination, devDestination) {
 
 helpers.lastmod = function (file) {
     if(file){
-        var tempDate = ExifImage.parseSync( './img/' + file).SubExif.DateTimeOriginal.split(/:| /);
+        let tempDate = ExifImage.parseSync( './img/' + file).SubExif.DateTimeOriginal.split(/:| /);
         return  `${tempDate[0]}-${tempDate[1]}-${tempDate[2]}T${tempDate[3]}:${tempDate[4]}:${tempDate[5]}+00:00`;
     } else {
         let currentTime = new Date();

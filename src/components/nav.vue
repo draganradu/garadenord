@@ -36,7 +36,7 @@ nav {
   top: 0;
   left: 0;
   z-index: 10;
-  background-color: white;
+  background-color: var(--color-one);
   @media (max-width: ($body-width * 2)) {
     max-width: 100%;
   }
@@ -50,7 +50,7 @@ nav {
     &.router-link-active,
     &:hover {
       background-color: rgba(0,0,0,0.4);
-      color:white;
+      color: var(--color-one);
     }
   }
 }
