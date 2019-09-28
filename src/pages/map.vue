@@ -67,7 +67,7 @@ export default {
     baseUrlRequest: function () {
       if (window.location.host.split(':').length === 1) {
         // production realrequest
-        return window.location.origin + '/static/api'
+        return window.location.origin + '/dinamic'
       } else {
         // dev mock request
         let builtUrl = window.location.origin.split(':')
@@ -81,6 +81,11 @@ export default {
     let prodUrl = _this.baseUrlRequest()
     axios.get(`${prodUrl}/VremeDisponibila.php`).then(response2 => {
       _this.main = response2.data
+      console.log('-----------------------------')
+      console.log(response2)
+      console.log('-----------------------------')
+      console.log(response2.data)
+      console.log('-----------------------------')
     })
   },
   metaInfo () {

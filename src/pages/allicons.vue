@@ -28,7 +28,7 @@ export default {
     baseUrlRequest: function () {
       if (window.location.host.split(':').length === 1) {
         // production realrequest
-        return window.location.origin + '/static/api'
+        return window.location.origin + '/dinamic'
       } else {
         // dev mock request
         let builtUrl = window.location.origin.split(':')
