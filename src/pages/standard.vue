@@ -69,7 +69,7 @@ import navHead from './../components/nav'
 import rightImg from './../components/rightimg'
 import siteData from './../api/site_data.json'
 import socialMedia from './../components/social_media'
-import { trimTags } from './../components/frame/helper'
+import { trimTags, baseLineUrl } from './../components/frame/helper'
 
 export default {
   name: 'GaraDeNord',
@@ -96,9 +96,8 @@ export default {
   },
   mounted () {
     let _this = this
-    let prodUrl = _this.baseUrlRequest()
 
-    axios.get(`${prodUrl}/VremePosibila.php`).then(response => {
+    axios.get(`${baseLineUrl}/VremePosibila.php`).then(response => {
       // initial posibile variants
       for (let i = 0; i < response.data.length; i++) {
         let temp = response.data[i].split('-')
@@ -108,7 +107,7 @@ export default {
         _this.VremeObiect[temp[0]][response.data[i]] = false
       }
 
-      axios.get(`${prodUrl}/VremeDisponibila.php`).then(response => {
+      axios.get(`${baseLineUrl}/VremeDisponibila.php`).then(response => {
         // set variables that are true
         _this.pickOfTheDay.count = _this.elementByYear(response.data.length)
         for (let i = 0; i < response.data.length; i++) {
@@ -152,18 +151,6 @@ export default {
     }
   },
   methods: {
-    baseUrlRequest: function () {
-      if (window.location.host.split(':').length === 1) {
-        // production realrequest
-        return window.location.origin + '/dinamic'
-      } else {
-        // dev mock request
-        let builtUrl = window.location.origin.split(':')
-        builtUrl.pop()
-        return builtUrl.join(':') + '/garadenord/src/api'
-      }
-    },
-
     elementByYear: function (arrayLength) {
       let settings = {
         time: {}

@@ -53,7 +53,7 @@
     </div>
 </template>
 <script>
-import colorHelper from './../components/frame/color'
+import { cGrayscale, cRgbToHex } from './../components/frame/color'
 export default {
   name: 'colorBar',
   props: [
@@ -68,13 +68,13 @@ export default {
   methods: {
     TitleConvertor: function (colorArray) {
       if (this.grayscale) {
-        colorArray = colorHelper.grayscale(colorArray)
+        colorArray = cGrayscale(colorArray)
       }
-      return '<span>Hex: <b>#' + colorHelper.rgbToHex(colorArray) + '</b></span>'
+      return '<span>Hex: <b>#' + cRgbToHex(colorArray) + '</b></span>'
     },
     ColorConvertor: function (colorArray) {
       if (this.grayscale) {
-        colorArray = colorHelper.grayscale(colorArray)
+        colorArray = cGrayscale(colorArray)
       }
       return 'rgb(' + colorArray[0] + ',' + colorArray[1] + ',' + colorArray[2] + ')'
     },

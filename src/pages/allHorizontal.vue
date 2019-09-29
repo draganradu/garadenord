@@ -12,6 +12,8 @@
 </template>
 <script>
 import axios from 'axios'
+import { baseLineUrl } from './../components/frame/helper'
+
 export default {
   name: 'AllPage',
   data () {
@@ -21,23 +23,11 @@ export default {
 
     }
   },
-  methods: {
-    baseUrlRequest: function () {
-      if (window.location.host.split(':').length === 1) {
-        // production realrequest
-        return window.location.origin + '/dinamic'
-      } else {
-        // dev mock request
-        let builtUrl = window.location.origin.split(':')
-        builtUrl.pop()
-        return builtUrl.join(':') + '/garadenord/src/api'
-      }
-    },
-  },
+
   mounted () {
     let _this = this
-    let prodUrl = _this.baseUrlRequest()
-    axios.get(`${prodUrl}/VremeDisponibila.php`).then(response2 => {
+
+    axios.get(`${baseLineUrl}/VremeDisponibila.php`).then(response2 => {
       _this.vreme = response2.data
     })
   }

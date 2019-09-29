@@ -23,4 +23,16 @@ const trimTags = function (string, length) {
   return string
 }
 
-export {trimTags}
+const baseLineUrl = (function () {
+  if (window.location.host.split(':').length === 1) {
+    // production realrequest
+    return window.location.origin + '/dinamic'
+  } else {
+    // dev mock request
+    let builtUrl = window.location.origin.split(':')
+    builtUrl.pop()
+    return builtUrl.join(':') + '/garadenord/src/api'
+  }
+})()
+
+export {trimTags, baseLineUrl}

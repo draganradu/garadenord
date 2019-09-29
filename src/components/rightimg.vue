@@ -46,6 +46,7 @@
 import axios from 'axios'
 import icon from './icon'
 import colorBar from './../components/color_bar'
+import { baseLineUrl } from './../components/frame/helper'
 
 export default {
   components: {
@@ -75,24 +76,12 @@ export default {
     rgbToHex: function (r, g, b) {
       return ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
     },
-    baseUrlRequest: function () {
-      if (window.location.host.split(':').length === 1) {
-        // production realrequest
-        return window.location.origin + '/dinamic'
-      } else {
-        // dev mock request
-        let builtUrl = window.location.origin.split(':')
-        builtUrl.pop()
-        return builtUrl.join(':') + '/garadenord/src/api'
-      }
-    },
   },
   mounted () {
     let _this = this
-    let prodUrl = _this.baseUrlRequest()
 
     // color pattern data for color bars
-    axios.get(`${prodUrl}/colorPattern.json`).then(response => {
+    axios.get(`${baseLineUrl}/colorPattern.json`).then(response => {
       _this.ColorPatterns = response.data
     })
   },

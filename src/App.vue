@@ -7,7 +7,7 @@
 <script>
 import siteData from './api/site_data.json'
 import siteHistory from './components/History'
-import { trimTags } from './components/frame/helper'
+import { trimTags, baseLineUrl } from './components/frame/helper'
 
 export default {
   name: 'app',
@@ -17,6 +17,7 @@ export default {
       htmlAttrs: {
         lang: 'ro'
       },
+      base: baseLineUrl,
       title: siteData.Sitetile + ' | ' + siteData.Subtitele,
       meta: [
         { charset: 'utf-8' },

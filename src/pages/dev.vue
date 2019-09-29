@@ -39,6 +39,8 @@
 <script>
 import axios from 'axios'
 import ImageOfTheDay from './../components/frame/image_of_the_day.js'
+import { baseLineUrl } from './../components/frame/helper'
+
 export default {
   name: 'DevPage',
 
@@ -56,14 +58,13 @@ export default {
   },
   mounted () {
     let _this = this
-    let prodUrl = _this.baseUrlRequest()
 
-    axios.get(`${prodUrl}/VremePosibila.php`)
+    axios.get(`${baseLineUrl}/VremePosibila.php`)
       .then(response => {
         // initial posibile variants
         _this.need = response.data
 
-        axios.get(`${prodUrl}/VremeDisponibila.php`)
+        axios.get(`${baseLineUrl}/VremeDisponibila.php`)
           .then(response => {
             _this.have = response.data
             _this.need = _this.unique(_this.need.concat(_this.have))
@@ -73,24 +74,12 @@ export default {
             _this.statistic.missing = _this.need.length - _this.have.length
 
             for (let i = 1; i <= 365; i++) {
-              _this.imgTest.push(_this.ImageOfTheDay(_this.have, i))
+              _this.imgTest.push(ImageOfTheDay(_this.have, i))
             }
           })
       })
   },
   methods: {
-    ImageOfTheDay: ImageOfTheDay,
-    baseUrlRequest: function () {
-      if (window.location.host.split(':').length === 1) {
-        // production realrequest
-        return window.location.origin + '/dinamic'
-      } else {
-        // dev mock request
-        let builtUrl = window.location.origin.split(':')
-        builtUrl.pop()
-        return builtUrl.join(':') + '/garadenord/src/api'
-      }
-    },
     unique: function (a) {
       return a.sort().filter(function (item, pos, ary) {
         return !pos || item !== ary[pos - 1]
