@@ -41,7 +41,8 @@ npm run only color
 - [x] add General helper function
 - [x] add Color helper function
 - [X] remove bootrsap 4
-- [ ] Cleanup SVG
+- [X] Cleanup SVG
+- [ ] Add GZip
 - [ ] make meta description work
 - [ ] deploy by ftp
 - [ ] build version fix pages to show all the modifications 

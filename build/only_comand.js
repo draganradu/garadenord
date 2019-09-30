@@ -13,7 +13,7 @@ if (settings.commands.indexOf('exit') > -1 || settings.commands.length === 0){
 }
 
 // htacces
-if (settings.commands.indexOf('htacces') > -1){
+if (settings.commands.indexOf('htacces') > -1 || settings.commands.indexOf('htaccess') > -1){
     customBuild.title('htacces')
     customBuild.copyFile('.htaccess','./src/router/','./dist/')
 }
