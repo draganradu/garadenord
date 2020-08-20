@@ -18,7 +18,7 @@
     "@vue/babel-preset-app": "^3.11.0",
     "axios": "^0.19.0",
     "babel-jest": "^24.9.0",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "bootstrap-vue": "^2.0.0-rc.21",
     "color-thief": "^2.2.5",
     "jpeg-exif": "^1.1.4",
